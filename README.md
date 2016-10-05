@@ -3,6 +3,7 @@
 
 ## 1. Get Intellij IDEA
 Download it [here](https://www.jetbrains.com/idea/specials/idea/idea.html?&gclid=CjwKEAjwydK_BRDK34GenvLB61YSJACZ8da3DYKMBBJKwurnBjpJjU_oTfSrQp7vRMZi97t2dUEDjhoCQSfw_wcB&gclsrc=aw.ds.ds&dclid=CN6cteOtxM8CFUYFDAodlPQLdQ)
+*set your theme to dark because white themes are for losers
 
 ## 2. Get MinecraftForge
 Download [here](https://files.minecraftforge.net/), get the MDK version (1.10.2 - 12.18.1.2011) for minecraft 1.10
