@@ -23,4 +23,4 @@ $ git remote add origin https://github.com/itsFrank/MinecraftHDL.git
 $ git pull origin master
 ```
 
-## 6. Branch out from main and have fun!
+## 6. Branch out from master and have fun!
