@@ -16,7 +16,7 @@ public class LogicGates {
     }
 
 
-    public static Circuit genAndGate(int inputs) {
+    public static Circuit AND(int inputs) {
         if (inputs == 0) throw new RuntimeException("Gate cannot have 0 inputs");
         boolean even = (inputs % 2) == 0;
         System.out.println(even);
@@ -55,6 +55,42 @@ public class LogicGates {
 
         return gate;
     }
+
+    public static Circuit OR(int inputs) {
+        if (inputs == 0) throw new RuntimeException("Gate cannot have 0 inputs");
+        boolean even = (inputs % 2) == 0;
+        System.out.println(even);
+        int width;
+        if (even){
+            width = 3 + (2 * (inputs - 2));
+        } else {
+            width = 1 + (2 * (inputs - 1));
+        }
+        System.out.println(width);
+        Circuit gate = new Circuit(width, 2, 5);
+
+        int half_width = (width - 1) / 2;
+
+        for (int i = 0; i < half_width; i+=2) {
+            gate.setBlock(i, 0, 0, Blocks.WOOL.getDefaultState());
+            gate.setBlock(i, 0, 1, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+            gate.setBlock(i, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
+            gate.setBlock(i + 1, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
+        }
+
+        gate.setBlock(half_width, 0, 3, Blocks.REDSTONE_WIRE.getDefaultState());
+        gate.setBlock(half_width, 0, 4, Blocks.WOOL.getDefaultState());
+
+        for (int i = even ? half_width : half_width - 1; i < (half_width * 2) + 1; i+=2) {
+            gate.setBlock(i + 1, 0, 0, Blocks.WOOL.getDefaultState());
+            gate.setBlock(i + 1, 0, 1, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+            gate.setBlock(i + 1, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
+            gate.setBlock(i, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
+        }
+
+        return gate;
+    }
+
 
     public static CircuitTest genAndGateTest(int inputs) {
         if (inputs == 0) throw new RuntimeException("Gate cannot have 0 inputs");

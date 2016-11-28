@@ -34,7 +34,7 @@ public class Synthesizer extends BasicBlock {
                 if (worldIn.getRedstonePower(pos.north(), EnumFacing.NORTH) > 0) {
                     //Negative Z is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
-                    LogicGates.genAndGate(10).placeInWorld(worldIn, pos, EnumFacing.NORTH);
+                    LogicGates.OR(10).placeInWorld(worldIn, pos, EnumFacing.NORTH);
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
                 }else if (worldIn.getRedstonePower(pos.east(), EnumFacing.EAST) > 0) {
                     //Negative X is receiving power
@@ -42,7 +42,7 @@ public class Synthesizer extends BasicBlock {
                 }else if (worldIn.getRedstonePower(pos.south(), EnumFacing.SOUTH) > 0) {
                     //Positive Z is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
-                    LogicGates.genAndGate(5).placeInWorld(worldIn, pos, EnumFacing.SOUTH);
+                    LogicGates.OR(5).placeInWorld(worldIn, pos, EnumFacing.SOUTH);
                 }else if (worldIn.getRedstonePower(pos.west(), EnumFacing.WEST) > 0) {
                     //Positive X is receiving power
                 }else if (worldIn.getRedstonePower(pos.up(), EnumFacing.UP) > 0) {
