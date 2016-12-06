@@ -8,14 +8,13 @@ public class Graph {
 	private ArrayList<Vertex> vertices;
 	
 	public Graph(){
-		vertices=new ArrayList<>();
+
+		this.vertices = new ArrayList<Vertex>();
 	}
 	
 	
 	public void addVertex(Vertex v){
 			vertices.add(v);
-
-		
 	}
 	
 	
@@ -24,10 +23,12 @@ public class Graph {
 			Function f=(Function)v2;
 			
 			if(f.canAdd()){
-				v1.addNeighbor(v2);
+				v1.addNext(v2);
+                v2.addPrev(v1);
 			}
 		}else{
-			v1.addNeighbor(v2);
+			v1.addNext(v2);
+            v2.addPrev(v1);
 		}
 	}
 	

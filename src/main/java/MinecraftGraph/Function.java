@@ -16,6 +16,11 @@ public class Function extends Vertex {
 			return this.func_type;
 		
 	}
+
+	public int get_num_inputs(){
+		return inputs;
+	}
+
 	
 	protected boolean canAdd(){
 		if(inputs==connectedInputs){
@@ -27,9 +32,9 @@ public class Function extends Vertex {
 	}
 	
 	@Override
-	protected void addNeighbor(Vertex v){
+	protected void addNext(Vertex v){
 		connectedInputs++;
-		super.addNeighbor(v);
+		super.addNext(v);
 	}
 	
 }
