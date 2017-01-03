@@ -20,27 +20,25 @@ public class Graph {
 	
 	
 	public void addEdge(Vertex v1, Vertex v2){
-		if(v2.getType()==VertexType.FUNCTION){
-			Function f=(Function)v2;
-			
-			if(f.canAdd()){
-				v1.addNeighbor(v2);
-			}
-		}else{
-			v1.addNeighbor(v2);
-		}
+		
+		v1.addToNext(v2);
+		v2.addToBefore(v1);
+	
+		
 	}
 	
 	
 	public void removeEdge(Vertex v1, Vertex v2){
-		v1.removeNeighbor(v2);
+		v1.removeNext(v2);
+		v2.removeBefore(v1);
 	}
 	
 	public void removeVertex(Vertex v){
 		//remove v from all vertices neighbors
 		
 		for(Vertex ver: vertices){
-			ver.removeNeighbor(v);
+			ver.removeNext(v);
+			ver.removeBefore(v);
 		}
 		//remove v from vertices list
 		vertices.remove(v);

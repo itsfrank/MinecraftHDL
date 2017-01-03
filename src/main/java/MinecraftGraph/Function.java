@@ -2,13 +2,14 @@ package MinecraftGraph;
 
 public class Function extends Vertex {
 	private FunctionType func_type;
-	private int inputs;
-	private int connectedInputs=0;
+	private int id;
 	
-	public Function(VertexType v_t, FunctionType f_t, int x){
+	public Function(int i, VertexType v_t, FunctionType f_t, int x){
+		
 		super.type=v_t;
+		super.bits_n=x;
+		id=i;
 		this.func_type=f_t;
-		this.inputs=x;
 	}
 	
 	
@@ -17,19 +18,22 @@ public class Function extends Vertex {
 		
 	}
 	
-	protected boolean canAdd(){
-		if(inputs==connectedInputs){
-			return false;
-		}
-		else{
-			return true;
-		}
+	
+	
+	@Override
+	protected void addToNext(Vertex v){
+		super.addToNext(v);
+	}
+	
+	@Override 
+	protected void addToBefore(Vertex v){
+		super.addToBefore(v);
 	}
 	
 	@Override
-	protected void addNeighbor(Vertex v){
-		connectedInputs++;
-		super.addNeighbor(v);
+	public String getID(){
+		return String.valueOf(id);
+		
 	}
 	
 }
