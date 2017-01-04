@@ -347,33 +347,6 @@ public class GraphBuilder {
 	
 	
 	
-	
-	//to be removed later
-	public static void main(String[] args){
-		Graph g=buildGraph("C://Users/Omar Ba mashmos/Documents/Design Project/yosys-win32-mxebin-0.6/tests/testMajority.json");
-		
-		//for testing purposes
-		
-		for(Vertex v:g.getVertices()){
-			System.out.println(v.getID());
-			
-			for(Vertex c:v.getNext()){
-				if(c.getType()==VertexType.INPUT||c.getType()==VertexType.OUTPUT)
-					System.out.println("--->"+c.getID());
-				else{
-				
-					Function gh=(Function)c;
-					System.out.println("--->"+gh.getFunc_Type().toString()+", "+gh.getID());
-				}
-			}
-			
-		}
-		
-		
-	
-		
-	}
-	
 	private static FunctionType resolveType(String type){
 		
 		//make sure that all string included
