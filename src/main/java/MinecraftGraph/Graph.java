@@ -8,23 +8,28 @@ public class Graph {
 	private ArrayList<Vertex> vertices;
 	
 	public Graph(){
-		vertices=new ArrayList<>();
+
+		this.vertices = new ArrayList<Vertex>();
 	}
 	
 	
 	public void addVertex(Vertex v){
 			vertices.add(v);
-
-		
 	}
 	
 	
 	public void addEdge(Vertex v1, Vertex v2){
-		
-		v1.addToNext(v2);
-		v2.addToBefore(v1);
-	
-		
+		if(v2.getType()==VertexType.FUNCTION){
+			Function f=(Function)v2;
+			
+			if(f.canAdd()){
+				v1.addNext(v2);
+                v2.addPrev(v1);
+			}
+		}else{
+			v1.addNext(v2);
+            v2.addPrev(v1);
+		}
 	}
 	
 	

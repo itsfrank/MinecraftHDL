@@ -81,4 +81,14 @@ public class Circuit {
     public IBlockState getState(int x, int y, int z){
         return this.blocks.get(x).get(y).get(z);
     }
+
+    public void insertCircuit(int x_offset, int y_offset, int z_offset, Circuit c) {
+        for (int x = 0; x < c.getSizeX(); x++) {
+            for (int y = 0; y < c.getSizeY(); y++) {
+                for (int z = 0; z < c.getSizeZ(); z++) {
+                    this.setBlock(x + x_offset, y + y_offset, z + z_offset, c.getState(x, y, z));
+                }
+            }
+        }
+    }
 }
