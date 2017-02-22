@@ -34,14 +34,16 @@ public class Graph {
 	
 	
 	public void removeEdge(Vertex v1, Vertex v2){
-		v1.removeNeighbor(v2);
+		v1.removeNext(v2);
+		v2.removeBefore(v1);
 	}
 	
 	public void removeVertex(Vertex v){
 		//remove v from all vertices neighbors
 		
 		for(Vertex ver: vertices){
-			ver.removeNeighbor(v);
+			ver.removeNext(v);
+			ver.removeBefore(v);
 		}
 		//remove v from vertices list
 		vertices.remove(v);

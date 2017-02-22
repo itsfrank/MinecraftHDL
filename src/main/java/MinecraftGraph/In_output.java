@@ -5,13 +5,16 @@ import java.util.ArrayList;
 public class In_output extends Vertex{
 	private String name;
 	
-	public In_output(VertexType v_t, String n){
+	public In_output(int num, VertexType v_t, String n){
 		
+		super.bits_n=num;
 		super.type=v_t;
 		this.name=n;
 
 	}
-	public  String getName(){
+	
+	@Override
+	public  String getID(){
 			return name;
 		
 	}
