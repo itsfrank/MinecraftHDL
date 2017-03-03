@@ -16,13 +16,7 @@ out
 # gradle
 build
 .gradle
-gradle
 
 # other
 eclipse
 run
-build.gradle
-forge-1.10.2-12.18.1.2011-changelog.txt
-forge-1.10.2-12.18.1.2011-mdk.zip
-gradlew
-gradlew.bat
