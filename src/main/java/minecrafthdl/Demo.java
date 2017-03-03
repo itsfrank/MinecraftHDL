@@ -12,33 +12,33 @@ public class Demo {
 
 
 
-        Vertex i = new In_output(VertexType.INPUT, "i");
-        Vertex j = new In_output(VertexType.INPUT, "j");
+        Vertex i = new In_output(1, VertexType.INPUT, "i");
+        Vertex j = new In_output(1, VertexType.INPUT, "j");
 
         mux.addVertex(i);
         mux.addVertex(j);
 
-        Vertex not_1 = new Function(VertexType.FUNCTION, FunctionType.INV, 1);
-        Vertex not_2 = new Function(VertexType.FUNCTION, FunctionType.INV, 1);
+        Vertex not_1 = new Function(1, VertexType.FUNCTION, FunctionType.INV, 1);
+        Vertex not_2 = new Function(1, VertexType.FUNCTION, FunctionType.INV, 1);
 
         mux.addVertex(not_1);
         mux.addVertex(not_2);
 
-        Vertex a = new In_output(VertexType.INPUT, "a");
-        Vertex b = new In_output(VertexType.INPUT, "b");
-        Vertex c = new In_output(VertexType.INPUT, "c");
-        Vertex d = new In_output(VertexType.INPUT, "d");
+        Vertex a = new In_output(1, VertexType.INPUT, "a");
+        Vertex b = new In_output(1, VertexType.INPUT, "b");
+        Vertex c = new In_output(1, VertexType.INPUT, "c");
+        Vertex d = new In_output(1, VertexType.INPUT, "d");
 
         mux.addVertex(a);
         mux.addVertex(b);
         mux.addVertex(c);
         mux.addVertex(d);
 
-        Vertex and_1 = new Function(VertexType.FUNCTION, FunctionType.AND, 3);
-        Vertex and_2 = new Function(VertexType.FUNCTION, FunctionType.AND, 3);
-        Vertex and_3 = new Function(VertexType.FUNCTION, FunctionType.AND, 3);
-        Vertex and_4 = new Function(VertexType.FUNCTION, FunctionType.AND, 3);
-        Vertex or_1 = new Function(VertexType.FUNCTION, FunctionType.OR, 4);
+        Vertex and_1 = new Function(1, VertexType.FUNCTION, FunctionType.AND, 3);
+        Vertex and_2 = new Function(1, VertexType.FUNCTION, FunctionType.AND, 3);
+        Vertex and_3 = new Function(1, VertexType.FUNCTION, FunctionType.AND, 3);
+        Vertex and_4 = new Function(1, VertexType.FUNCTION, FunctionType.AND, 3);
+        Vertex or_1 = new Function(1, VertexType.FUNCTION, FunctionType.OR, 4);
 
         mux.addVertex(and_1);
         mux.addVertex(and_2);
@@ -46,7 +46,7 @@ public class Demo {
         mux.addVertex(and_4);
         mux.addVertex(or_1);
 
-        Vertex o = new In_output(VertexType.OUTPUT, "o");
+        Vertex o = new In_output(1, VertexType.OUTPUT, "o");
 
         mux.addVertex(o);
 

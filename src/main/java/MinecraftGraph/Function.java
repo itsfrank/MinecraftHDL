@@ -19,7 +19,7 @@ public class Function extends Vertex {
 	}
 
 	public int get_num_inputs(){
-		return inputs;
+		return bits_n;
 	}
 
 	
@@ -41,7 +41,6 @@ public class Function extends Vertex {
   }
 
 	protected void addNext(Vertex v){
-		connectedInputs++;
 		super.addNext(v);
 	}
 	
