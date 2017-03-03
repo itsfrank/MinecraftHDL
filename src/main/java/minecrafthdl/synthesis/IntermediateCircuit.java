@@ -76,12 +76,6 @@ public class IntermediateCircuit {
         }
     }
 
-    public void fixSecondlayer(){
-        Vertex tmp = this.layers.get(1).get(2);
-        this.layers.get(1).set(2, this.layers.get(1).get(1));
-        this.layers.get(1).set(1, tmp);
-    }
-
     public Circuit genCircuit(){
         if (layers.size() == 0) return null;
 

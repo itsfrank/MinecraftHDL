@@ -27,6 +27,8 @@ public class Circuit {
         }
     }
 
+
+
     public void setBlock(int x, int y, int z, IBlockState blockstate) {
         this.blocks.get(x).get(y).set(z, blockstate);
     }
