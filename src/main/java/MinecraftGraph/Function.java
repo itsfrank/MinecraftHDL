@@ -40,7 +40,7 @@ public class Function extends Vertex {
 		return String.valueOf(id);
   }
 
-	protected void addNext(Vertex v){
+	public void addNext(Vertex v){
 		super.addNext(v);
 	}
 	

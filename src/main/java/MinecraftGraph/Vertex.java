@@ -40,16 +40,15 @@ public abstract class Vertex {
     this.next.add(v);
 	}
 
-	protected void addNext(Vertex v){
-		this.next.add(v);
-	}
-  
 	public ArrayList<Vertex> getNext(){
 		return this.next;
 	}
 
-	
-	protected void removeNext(Vertex v){
+	public void addNext(Vertex v){
+		this.next.add(v);
+	}
+
+	public void removeNext(Vertex v){
 		next.remove(v);
 	}
 	
@@ -59,18 +58,22 @@ public abstract class Vertex {
 	public ArrayList<Vertex> getBefore(){
 		return this.before;
 	}
-	
-	protected void removeBefore(Vertex v){
-		before.remove(v);
-  }
-  
-	protected void addPrev(Vertex v){
-		this.prev.add(v);
-	}
+
 	public ArrayList<Vertex> getPrev(){
 		return this.prev;
 	}
-	
+
+	public void addPrev(Vertex v){
+		this.prev.add(v);
+	}
+
+	public void removePrev(Vertex v){
+		before.remove(v);
+	}
+	public void removeBefore(Vertex v){
+		before.remove(v);
+  }
+
 	protected void removeNeighbor(Vertex v){
         if (next.contains(v)) {
             next.remove(v);

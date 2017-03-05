@@ -12,6 +12,9 @@ import java.util.ArrayList;
  * Created by Francis on 10/28/2016.
  */
 public class Circuit {
+
+    public static boolean TEST = false;
+
     ArrayList<ArrayList<ArrayList<IBlockState>>> blocks;
 
     public Circuit(int sizeX, int sizeY, int sizeZ){
@@ -21,7 +24,7 @@ public class Circuit {
             for (int y = 0; y < sizeY; y++) {
                 this.blocks.get(x).add(new ArrayList<IBlockState>());
                 for (int z = 0; z < sizeZ; z++) {
-                    this.blocks.get(x).get(y).add(Blocks.AIR.getDefaultState());
+                    if (!Circuit.TEST) this.blocks.get(x).get(y).add(Blocks.AIR.getDefaultState());
                 }
             }
         }
@@ -30,6 +33,7 @@ public class Circuit {
 
 
     public void setBlock(int x, int y, int z, IBlockState blockstate) {
+        if (TEST) return;
         this.blocks.get(x).get(y).set(z, blockstate);
     }
 

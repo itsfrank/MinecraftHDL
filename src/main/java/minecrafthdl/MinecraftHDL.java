@@ -35,9 +35,7 @@ public class MinecraftHDL
     {
         proxy.init(e);
         // some example code
-        System.out.println("DIRT BLOCK >> "+Blocks.DIRT.getUnlocalizedName());
         MinecraftForge.EVENT_BUS.register(this);
-        GameRegistry.addShapelessRecipe(new ItemStack(Items.DIAMOND, 32), Blocks.DIRT);
 
     }
 

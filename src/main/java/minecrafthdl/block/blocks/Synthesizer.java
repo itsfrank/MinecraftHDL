@@ -32,12 +32,12 @@ public class Synthesizer extends BasicBlock {
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
         if(!worldIn.isRemote) {
             if(!state.getValue(TRIGGERED)){
-                boolean triggered = true;
                 if (worldIn.getRedstonePower(pos.north(), EnumFacing.NORTH) > 0) {
                     //Negative Z is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
                     IntermediateCircuit ic = new IntermediateCircuit();
                     ic.loadGraph(Demo.create4bitmuxgraph());
+                    ic.buildGates();
                     ic.genCircuit().placeInWorld(worldIn, pos.north(), EnumFacing.NORTH);
 
                 }else if (worldIn.getRedstonePower(pos.east(), EnumFacing.EAST) > 0) {
@@ -46,7 +46,7 @@ public class Synthesizer extends BasicBlock {
                 }else if (worldIn.getRedstonePower(pos.south(), EnumFacing.SOUTH) > 0) {
                     //Positive Z is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
-                    LogicGates.AND(18).placeInWorld(worldIn, pos, EnumFacing.SOUTH);
+                    LogicGates.RELAY().placeInWorld(worldIn, pos, EnumFacing.SOUTH);
                 }else if (worldIn.getRedstonePower(pos.west(), EnumFacing.WEST) > 0) {
                     //Positive X is receiving power
                 }else if (worldIn.getRedstonePower(pos.up(), EnumFacing.UP) > 0) {
