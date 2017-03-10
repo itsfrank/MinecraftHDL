@@ -1,0 +1,64 @@
+{
+  "creator": "Yosys 0.6 (git sha1 5869d26, i686-pc-mingw32-gcc 4.8.1 -Os)",
+  "modules": {
+    "mux": {
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "sel": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "out": {
+          "direction": "output",
+          "bits": [ 5 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "$0\\out[0:0]": {
+          "hide_name": 1,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "tests/multiplexer.v:6"
+          }
+        },
+        "out": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "tests/multiplexer.v:4"
+          }
+        },
+        "sel": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "tests/multiplexer.v:3"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "tests/multiplexer.v:3"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "tests/multiplexer.v:3"
+          }
+        }
+      }
+    }
+  }
+}

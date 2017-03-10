@@ -1,0 +1,212 @@
+{
+  "creator": "Yosys 0.6 (git sha1 5869d26, i686-pc-mingw32-gcc 4.8.1 -Os)",
+  "modules": {
+    "testMajority": {
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "c": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "d": {
+          "direction": "output",
+          "bits": [ 5 ]
+        }
+      },
+      "cells": {
+        "$or$tests/testMajority.v:5$5": {
+          "hide_name": 1,
+          "type": "$or",
+          "parameters": {
+            "Y_WIDTH": 1,
+            "B_WIDTH": 1,
+            "A_WIDTH": 1,
+            "B_SIGNED": 0,
+            "A_SIGNED": 0
+          },
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          },
+          "port_directions": {
+            "Y": "output",
+            "B": "input",
+            "A": "input"
+          },
+          "connections": {
+            "Y": [ 5 ],
+            "B": [ 6 ],
+            "A": [ 7 ]
+          }
+        },
+        "$and$tests/testMajority.v:5$4": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "Y_WIDTH": 1,
+            "B_WIDTH": 1,
+            "A_WIDTH": 1,
+            "B_SIGNED": 0,
+            "A_SIGNED": 0
+          },
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          },
+          "port_directions": {
+            "Y": "output",
+            "B": "input",
+            "A": "input"
+          },
+          "connections": {
+            "Y": [ 6 ],
+            "B": [ 4 ],
+            "A": [ 3 ]
+          }
+        },
+        "$or$tests/testMajority.v:5$3": {
+          "hide_name": 1,
+          "type": "$or",
+          "parameters": {
+            "Y_WIDTH": 1,
+            "B_WIDTH": 1,
+            "A_WIDTH": 1,
+            "B_SIGNED": 0,
+            "A_SIGNED": 0
+          },
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          },
+          "port_directions": {
+            "Y": "output",
+            "B": "input",
+            "A": "input"
+          },
+          "connections": {
+            "Y": [ 7 ],
+            "B": [ 8 ],
+            "A": [ 9 ]
+          }
+        },
+        "$and$tests/testMajority.v:5$2": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "Y_WIDTH": 1,
+            "B_WIDTH": 1,
+            "A_WIDTH": 1,
+            "B_SIGNED": 0,
+            "A_SIGNED": 0
+          },
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          },
+          "port_directions": {
+            "Y": "output",
+            "B": "input",
+            "A": "input"
+          },
+          "connections": {
+            "Y": [ 8 ],
+            "B": [ 3 ],
+            "A": [ 2 ]
+          }
+        },
+        "$and$tests/testMajority.v:5$1": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "Y_WIDTH": 1,
+            "B_WIDTH": 1,
+            "A_WIDTH": 1,
+            "B_SIGNED": 0,
+            "A_SIGNED": 0
+          },
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          },
+          "port_directions": {
+            "Y": "output",
+            "B": "input",
+            "A": "input"
+          },
+          "connections": {
+            "Y": [ 9 ],
+            "B": [ 4 ],
+            "A": [ 2 ]
+          }
+        }
+      },
+      "netnames": {
+        "$or$tests/testMajority.v:5$5_Y": {
+          "hide_name": 1,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          }
+        },
+        "$and$tests/testMajority.v:5$4_Y": {
+          "hide_name": 1,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          }
+        },
+        "$or$tests/testMajority.v:5$3_Y": {
+          "hide_name": 1,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          }
+        },
+        "$and$tests/testMajority.v:5$2_Y": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          }
+        },
+        "$and$tests/testMajority.v:5$1_Y": {
+          "hide_name": 1,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "tests/testMajority.v:5"
+          }
+        },
+        "d": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "tests/testMajority.v:3"
+          }
+        },
+        "c": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "tests/testMajority.v:2"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "tests/testMajority.v:2"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "tests/testMajority.v:2"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "creator": "Yosys 0.6 (git sha1 5869d26, i686-pc-mingw32-gcc 4.8.1 -Os)",
+  "modules": {
+    "test": {
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2, 3, 4, 5 ]
+        },
+        "b": {
+          "direction": "output",
+          "bits": [ 6, 7 ]
+        }
+      },
+      "cells": {
+        "$auto$simplemap.cc:85:simplemap_bitop$47": {
+          "hide_name": 1,
+          "type": "$_AND_",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "tests/Verilogfiles/test_arrays.v:5"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2 ],
+            "B": [ 4 ],
+            "Y": [ 6 ]
+          }
+        },
+        "$auto$simplemap.cc:85:simplemap_bitop$48": {
+          "hide_name": 1,
+          "type": "$_OR_",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "tests/Verilogfiles/test_arrays.v:6"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 5 ],
+            "Y": [ 7 ]
+          }
+        }
+      },
+      "netnames": {
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4, 5 ],
+          "attributes": {
+            "src": "tests/Verilogfiles/test_arrays.v:3"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 6, 7 ],
+          "attributes": {
+            "src": "tests/Verilogfiles/test_arrays.v:4"
+          }
+        }
+      }
+    }
+  }
+}
