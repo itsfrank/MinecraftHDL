@@ -17,11 +17,6 @@ public class Function extends Vertex {
 			return this.func_type;
 		
 	}
-
-	public int get_num_inputs(){
-		return bits_n;
-	}
-
 	
 	
 	
@@ -38,10 +33,7 @@ public class Function extends Vertex {
 	@Override
 	public String getID(){
 		return String.valueOf(id);
-  }
-
-	public void addNext(Vertex v){
-		super.addNext(v);
+		
 	}
 	
 }

@@ -26,10 +26,8 @@ import MinecraftGraph.VertexType;
 //main class
 //json file->javaObject->Vertex->graph
 public class GraphBuilder {
-	private static final String[] keywords={"modules", "ports", "cells", "netnames"};
 	private static ArrayList<String> ports_names=new ArrayList<>();
 	private static ArrayList<String> cells_names=new ArrayList<>();
-	private static ArrayList<String> net_names=new ArrayList<>();
 	private static ArrayList<Port> ports=new ArrayList<>();
 	private static ArrayList<Cell> cells=new ArrayList<>();
 	
@@ -105,10 +103,8 @@ public class GraphBuilder {
 						}
 					}
 				else if (line.contains("}")){cells_braces--;}
-				
-				
-				
-				
+			
+			
 
 			}
 			
@@ -116,35 +112,7 @@ public class GraphBuilder {
 			sb2.append("}");
 			cellsBlock=sb2.toString();
 			
-			//read netnames block from json file
 			
-			//read gates block in the json file
-			int netnames_braces=1;
-			line=b_r.readLine();
-			sb3.append("{");
-			while(netnames_braces!= 0){
-				
-				sb3.append(line);
-				line=b_r.readLine();
-				
-				if(line.contains("{")){
-					netnames_braces++;
-					
-					//json syntax makes the required object with { number 2
-					if(netnames_braces==2){
-						net_names.add(line.replaceAll(pattern, ""));
-
-						}
-					}
-				else if (line.contains("}")){netnames_braces--;}
-				
-				
-
-			}
-			
-			sb3.append("}");
-			sb3.append("}");
-			netnamesBlock=sb3.toString();
 
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -167,15 +135,16 @@ public class GraphBuilder {
 		}
 		
 		JsonObject cells_obj=gson.fromJson(cellsBlock, JsonElement.class).getAsJsonObject().get("cells").getAsJsonObject();
+
 		
 		int j=1;	//count to assign ids to gates
+	
 		for(String c: cells_names){
 			
 			JsonObject js_c=cells_obj.get(c).getAsJsonObject();
 			JsonObject param_obj=js_c.get("parameters").getAsJsonObject();
 			JsonObject conn_obj=js_c.get("connections").getAsJsonObject();
 			JsonObject dir_obj=js_c.get("port_directions").getAsJsonObject();
-
 
 			
 			String[] param=param_obj.toString().replaceAll("[{]", "").split(",");
@@ -195,7 +164,9 @@ public class GraphBuilder {
 				
 			}
 			
-			Cell cell=new Cell(j, js_c.get("hide_name").getAsInt(),js_c.get("type").getAsString(), js_c.get("attributes").getAsJsonObject().get("src").getAsString(),conn_list );
+		
+
+			Cell cell=new Cell(j,js_c.get("type").getAsString(),conn_list );
 			
 			cells.add(cell);
 			j++;
@@ -281,8 +252,57 @@ public class GraphBuilder {
 			
 		}
 			
-		
+		optimizeGraph(graph);
 		return graph;
+	}
+	
+	private static void optimizeGraph(Graph graph){
+		//iterate through all the nodes of the graph
+		//if or or and gate check outputs
+		//if all outputs are of the same type
+		//remove lower level and reconnect its inputs with the higher level
+		//got back
+		ArrayList<Vertex> verToRemove=new ArrayList<>();
+		for(Vertex v: graph.getVertices()){
+			//check if vertex is a gate
+			if(v.getType()==VertexType.FUNCTION){
+				//check if gate type is and, or or xor
+				Function f=(Function)v;
+				
+				FunctionType f_t=f.getFunc_Type();
+				if(f_t==FunctionType.AND||f_t==FunctionType.OR||f_t==FunctionType.XOR){
+					if(canMerge(f)){
+						for(Vertex s:f.getNext()){
+							graph.mergeVertices(f, s);
+						}
+						verToRemove.add(f);
+						
+					}
+					
+				}	
+			}		
+			
+		}
+		
+		for(Vertex t:verToRemove){
+			graph.removeVertex(t);
+		}
+	}
+	
+	private static boolean canMerge(Function v){
+		for(Vertex x:v.getNext()){
+			if(x.getType()!=VertexType.FUNCTION){
+				return false;
+				
+			}
+			Function f=(Function)x;
+			if(f.getFunc_Type()!=v.getFunc_Type()){
+				return false;
+			}	
+		}
+		
+		return true;
+		
 	}
 	
 	
@@ -315,12 +335,12 @@ public class GraphBuilder {
 	}
 	
 	//checks if signals, gates are connected
-	private static int areConnected(ArrayList<Integer> arr1, ArrayList<Integer> arr2){
+	private static int areConnected(ArrayList<Integer> bits, ArrayList<Integer> inputs2){
 		
 		int count=0; 
 		
-		for(Integer x: arr1){
-			for(Integer y: arr2){
+		for(Integer x: bits){
+			for(Integer y: inputs2){
 				if(x==y){
 					count++;
 				}
@@ -347,6 +367,65 @@ public class GraphBuilder {
 	
 	
 	
+	
+	//to be removed later
+	public static void main(String[] args) throws Exception{
+		String execFile="C:\\Users\\Omar Ba mashmos\\Documents\\Design Project\\yosys-win32-mxebin-0.6";
+		/*File workingdir=new File("C:/Users/Omar Ba mashmos/Documents/Design Project/yosys-win32-mxebin-0.6");
+		ProcessBuilder pb=new ProcessBuilder("cmd", "/c", "start", execFile);
+		pb.directory(workingdir);
+		*/
+		
+		//pb.start();
+		//Runtime.getRuntime().exec("cmd /c cd "+execFile);
+		//Runtime.getRuntime().exec("cmd /c start");
+	   // Process p=Runtime.getRuntime().exec("cmd.exe /c "); 
+
+		Graph g=buildGraph("C://Users/Omar Ba mashmos/Documents/Design Project/yosys-win32-mxebin-0.6/tests/json files/test_arrays.json");
+		
+		//for testing purposes
+		print(g);
+		getNumberOfGates(g);
+		System.out.println("======================================");
+		
+		//optimize
+		optimizeGraph(g);			
+		print(g);
+		getNumberOfGates(g);	
+	}
+	
+	private static void print(Graph g){
+		int number_of_gates=0;
+		for(Vertex v:g.getVertices()){
+			System.out.println(v.getID());
+			
+			for(Vertex c:v.getNext()){
+				if(c.getType()==VertexType.INPUT||c.getType()==VertexType.OUTPUT)
+					System.out.println("--->"+c.getID());
+				else{
+				
+					Function gh=(Function)c;
+					System.out.println("--->"+gh.getFunc_Type().toString()+", "+gh.getID());
+					number_of_gates++;
+				}
+			}
+			
+		}
+				
+		
+	}
+	
+	private static void getNumberOfGates(Graph g){
+		int num=0;
+		for(Vertex v: g.getVertices()){
+			if(v.getType()==VertexType.FUNCTION){
+				num++;
+			}
+		}
+		System.out.println("Number of gates is "+num);
+		
+	}
+	
 	private static FunctionType resolveType(String type){
 		
 		//make sure that all string included
@@ -354,23 +433,19 @@ public class GraphBuilder {
 		if(type.contains("and")||type.contains("AND")){
 			return FunctionType.AND;
 			
+		}else if(type.contains("MUX")||type.contains("mux")){
+			return FunctionType.MUX;
 		}else if(type.contains("or")||type.contains("OR")){
 			return FunctionType.OR;
 			
 		}else if(type.contains("XOR")||type.contains("xor")){
 			return FunctionType.XOR;
 			
-		}else if(type.contains("XNOR")||type.contains("xnor")){
-			return FunctionType.XNOR;
-			
-		}else if(type.contains("INV")||type.contains("inv")){
-			return FunctionType.INV;
-			
-		}else if(type.contains("nor")||type.contains("NOR")){
-			return FunctionType.NOR;
+		}else if(type.contains("dff_p")||type.contains("DFF_P")){
+			return FunctionType.D_FLIPFLOP;
 			
 		}else{
-			return FunctionType.NAND;
+			return FunctionType.INV;
 		}
 		
 		
@@ -389,9 +464,9 @@ class Port{
 		name=n;
 		direction=d;
 		
+		
 		for(int i=0; i<b.size(); i++){
-			bits.add(b.getAsInt());
-			
+			bits.add(b.get(i).getAsInt());
 			}
 		
 		}	
@@ -400,19 +475,15 @@ class Port{
 	
 	class Cell{
 		int id;
-		int hide_name;
 		String type;
-		String attr_src;
 		ArrayList<Connection> connections=new ArrayList<>();
 		
 		ArrayList<Integer> inputs=new ArrayList<Integer>();
 		ArrayList<Integer> outputs=new ArrayList<>();
 		
-		public Cell(int i, int h, String t, String src, ArrayList<Connection> cns){
+		public Cell(int i, String t, ArrayList<Connection> cns){
 			id=i;
-			hide_name=h;
 			type=t;
-			attr_src=src;
 			connections=cns;
 			
 			
