@@ -368,64 +368,6 @@ public class GraphBuilder {
 	
 	
 	
-	//to be removed later
-	public static void main(String[] args) throws Exception{
-		String execFile="C:\\Users\\Omar Ba mashmos\\Documents\\Design Project\\yosys-win32-mxebin-0.6";
-		/*File workingdir=new File("C:/Users/Omar Ba mashmos/Documents/Design Project/yosys-win32-mxebin-0.6");
-		ProcessBuilder pb=new ProcessBuilder("cmd", "/c", "start", execFile);
-		pb.directory(workingdir);
-		*/
-		
-		//pb.start();
-		//Runtime.getRuntime().exec("cmd /c cd "+execFile);
-		//Runtime.getRuntime().exec("cmd /c start");
-	   // Process p=Runtime.getRuntime().exec("cmd.exe /c "); 
-
-		Graph g=buildGraph("C://Users/Omar Ba mashmos/Documents/Design Project/yosys-win32-mxebin-0.6/tests/json files/test_arrays.json");
-		
-		//for testing purposes
-		print(g);
-		getNumberOfGates(g);
-		System.out.println("======================================");
-		
-		//optimize
-		optimizeGraph(g);			
-		print(g);
-		getNumberOfGates(g);	
-	}
-	
-	private static void print(Graph g){
-		int number_of_gates=0;
-		for(Vertex v:g.getVertices()){
-			System.out.println(v.getID());
-			
-			for(Vertex c:v.getNext()){
-				if(c.getType()==VertexType.INPUT||c.getType()==VertexType.OUTPUT)
-					System.out.println("--->"+c.getID());
-				else{
-				
-					Function gh=(Function)c;
-					System.out.println("--->"+gh.getFunc_Type().toString()+", "+gh.getID());
-					number_of_gates++;
-				}
-			}
-			
-		}
-				
-		
-	}
-	
-	private static void getNumberOfGates(Graph g){
-		int num=0;
-		for(Vertex v: g.getVertices()){
-			if(v.getType()==VertexType.FUNCTION){
-				num++;
-			}
-		}
-		System.out.println("Number of gates is "+num);
-		
-	}
-	
 	private static FunctionType resolveType(String type){
 		
 		//make sure that all string included
