@@ -1,0 +1,78 @@
+{
+  "creator": "Yosys 0.6 (git sha1 5869d26, i686-pc-mingw32-gcc 4.8.1 -Os)",
+  "modules": {
+    "OR": {
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "c": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "out": {
+          "direction": "output",
+          "bits": [ 5 ]
+        }
+      },
+      "cells": {
+        "G1": {
+          "hide_name": 0,
+          "type": "OR",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "tests/or.v:4"
+          },
+          "port_directions": {
+            "$4": "input",
+            "$3": "input",
+            "$2": "input",
+            "$1": "output"
+          },
+          "connections": {
+            "$4": [ 4 ],
+            "$3": [ 3 ],
+            "$2": [ 2 ],
+            "$1": [ 5 ]
+          }
+        }
+      },
+      "netnames": {
+        "out": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "tests/or.v:3"
+          }
+        },
+        "c": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "tests/or.v:2"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "tests/or.v:2"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "tests/or.v:2"
+          }
+        }
+      }
+    }
+  }
+}
