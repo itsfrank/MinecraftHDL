@@ -21,12 +21,12 @@ public class Function extends Vertex {
 	
 	
 	@Override
-	protected void addToNext(Vertex v){
+	public void addToNext(Vertex v){
 		super.addToNext(v);
 	}
 	
 	@Override 
-	protected void addToBefore(Vertex v){
+	public void addToBefore(Vertex v){
 		super.addToBefore(v);
 	}
 	
@@ -35,5 +35,8 @@ public class Function extends Vertex {
 		return String.valueOf(id);
 		
 	}
-	
+
+	public int get_num_inputs() {
+		return this.bits_n;
+	}
 }

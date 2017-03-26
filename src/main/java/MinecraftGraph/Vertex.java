@@ -18,7 +18,7 @@ public abstract class Vertex {
 		return this.type;
 	}
 	
-	protected boolean canAdd(){
+	public boolean canAdd(){
 		if(bits_n==counter){
 			return false;
 		}
@@ -32,7 +32,7 @@ public abstract class Vertex {
 
 	
 	
-	protected void addToNext(Vertex v){
+	public void addToNext(Vertex v){
 		counter++;
 		this.next.add(v);
 	}
@@ -40,18 +40,18 @@ public abstract class Vertex {
 		return this.next;
 	}
 	
-	protected void removeNext(Vertex v){
+	public void removeNext(Vertex v){
 		next.remove(v);
 	}
 	
-	protected void addToBefore(Vertex v){
+	public void addToBefore(Vertex v){
 		this.before.add(v);
 	}
 	public ArrayList<Vertex> getBefore(){
 		return this.before;
 	}
 	
-	protected void removeBefore(Vertex v){
+	public void removeBefore(Vertex v){
 		before.remove(v);
 	}
 	

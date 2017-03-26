@@ -18,6 +18,8 @@ public class IntermediateCircuit {
 
     public ArrayList<ArrayList<Vertex>> vertex_layers = new ArrayList<>();
     public ArrayList<ArrayList<Gate>> gate_layers = new ArrayList<>();
+    public ArrayList<Channel> channels = new ArrayList<>();
+
 
     public void loadGraph(Graph graph) {
         ArrayList<Vertex> finished = new ArrayList<>();
@@ -37,7 +39,7 @@ public class IntermediateCircuit {
             vertex_layers.add(new ArrayList<Vertex>());
             for (Vertex v : in_process){
                 boolean valid = true;
-                for (Vertex p : v.getPrev()){
+                for (Vertex p : v.getBefore()){
                     if (!finished.contains(p)) {
                         valid = false;
                         break;
@@ -79,18 +81,18 @@ public class IntermediateCircuit {
                         next_layer.add(relay);
 
                         removeFromNext.add(next);
-                        next.removePrev(v);
+                        next.removeBefore(v);
 
                         addToNext.add(relay);
-                        relay.addPrev(v);
+                        relay.addToBefore(v);
 
-                        relay.addNext(next);
-                        next.addPrev(relay);
+                        relay.addToNext(next);
+                        next.addToBefore(relay);
                     }
                 }
 
                 for (Vertex x : addToNext){
-                    v.addNext(x);
+                    v.addToNext(x);
                 }
 
                 for (Vertex x : removeFromNext){
@@ -148,10 +150,7 @@ public class IntermediateCircuit {
 
             HashMap<Integer, Net> nets = Router.initializeNets(top_vertices, bottom_vertices, pin_map);
 
-            Channel channel = Router.placeNets(nets, pins_array);
-
-
-            channel.printChannel();
+            this.channels.add(Router.placeNets(nets, pins_array));
 
             Net.num_nets = 0;
         }
