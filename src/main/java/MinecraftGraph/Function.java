@@ -17,31 +17,26 @@ public class Function extends Vertex {
 			return this.func_type;
 		
 	}
-
-	public int get_num_inputs(){
-		return bits_n;
-	}
-
 	
 	
 	
 	@Override
-	protected void addToNext(Vertex v){
+	public void addToNext(Vertex v){
 		super.addToNext(v);
 	}
 	
 	@Override 
-	protected void addToBefore(Vertex v){
+	public void addToBefore(Vertex v){
 		super.addToBefore(v);
 	}
 	
 	@Override
 	public String getID(){
 		return String.valueOf(id);
-  }
-
-	public void addNext(Vertex v){
-		super.addNext(v);
+		
 	}
-	
+
+	public int get_num_inputs() {
+		return this.bits_n;
+	}
 }

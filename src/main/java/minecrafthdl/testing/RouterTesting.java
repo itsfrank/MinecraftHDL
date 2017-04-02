@@ -17,6 +17,7 @@ public class RouterTesting {
         ic.buildGates();
         ic.printLayers();
         ic.routeChannels();
+        ic.channels.get(1).genChannelCircuit();
     }
 
 

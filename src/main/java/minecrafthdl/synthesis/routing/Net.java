@@ -91,24 +91,4 @@ public class Net {
         return pins;
     }
 
-    public Net split(Pin pin) {
-        Net net = new Net(pin.xPos(), this.x_max);
-        this.x_max = pin.xPos();
-        this.dogleg_splits.add(net.id);
-        net.dogleg_splits.add(this.id);
-
-        ArrayList<Pin> toRemove = new ArrayList<>();
-        for (Pin p : this.pins) {
-            if (p.xPos() > pin.xPos()){
-                net.addPin(p, true);
-                toRemove.add(p);
-            }
-        }
-
-        for (Pin p : toRemove){
-            this.pins.remove(p);
-        }
-
-        return net;
-    }
 }

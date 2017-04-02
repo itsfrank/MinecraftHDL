@@ -1,5 +1,5 @@
 package MinecraftGraph;
 
 public enum FunctionType {
-	OR, NOR, AND, NAND, INV, XOR, XNOR, RELAY, IO;
+	OR,XOR, AND, INV, D_FLIPFLOP, MUX, RELAY, IO;
 }

@@ -8,28 +8,23 @@ public class Graph {
 	private ArrayList<Vertex> vertices;
 	
 	public Graph(){
-
-		this.vertices = new ArrayList<Vertex>();
+		vertices=new ArrayList<>();
 	}
 	
 	
 	public void addVertex(Vertex v){
 			vertices.add(v);
+
+		
 	}
 	
 	
 	public void addEdge(Vertex v1, Vertex v2){
-		if(v2.getType()==VertexType.FUNCTION){
-			Function f=(Function)v2;
-			
-			if(f.canAdd()){
-				v1.addNext(v2);
-                v2.addPrev(v1);
-			}
-		}else{
-			v1.addNext(v2);
-            v2.addPrev(v1);
-		}
+		
+		v1.addToNext(v2);
+		v2.addToBefore(v1);
+	
+		
 	}
 	
 	
@@ -39,7 +34,7 @@ public class Graph {
 	}
 	
 	public void removeVertex(Vertex v){
-		//remove v from all vertices neighbors
+		//remove v from all neighbors
 		
 		for(Vertex ver: vertices){
 			ver.removeNext(v);
@@ -47,6 +42,20 @@ public class Graph {
 		}
 		//remove v from vertices list
 		vertices.remove(v);
+		
+	}
+	
+	//This function takes the inputs to the first vertex v1 and adds them to v2
+	public void mergeVertices(Vertex v1, Vertex v2){
+		
+		
+		//v1 is to be merged(source)
+		for(Vertex v: v1.getBefore()){
+			v2.addToBefore(v);
+			v.addToNext(v2);
+		}
+		
+		
 		
 	}
 	

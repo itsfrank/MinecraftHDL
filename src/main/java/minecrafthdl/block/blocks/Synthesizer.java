@@ -1,18 +1,24 @@
 package minecrafthdl.block.blocks;
 
 import minecrafthdl.Demo;
+import minecrafthdl.MinecraftHDL;
 import minecrafthdl.block.BasicBlock;
+import minecrafthdl.gui.MinecraftHDLGuiHandler;
 import minecrafthdl.synthesis.IntermediateCircuit;
 import minecrafthdl.synthesis.LogicGates;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.io.IOException;
+import javax.annotation.Nullable;
 
 /**
  * Created by Francis on 10/28/2016.
@@ -27,7 +33,14 @@ public class Synthesizer extends BasicBlock {
         System.out.println("hello");
     }
 
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
+        if (worldIn.isRemote){
+            playerIn.openGui(MinecraftHDL.instance, MinecraftHDLGuiHandler.SYNTHESISER_GUI_ID, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
+        }
 
+        return true;
+    }
 
     @SuppressWarnings("deprecation")
     @Override
