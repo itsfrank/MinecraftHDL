@@ -12,6 +12,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.io.IOException;
+
 /**
  * Created by Francis on 10/28/2016.
  */
@@ -51,6 +53,18 @@ public class Synthesizer extends BasicBlock {
                     //Positive X is receiving power
                 }else if (worldIn.getRedstonePower(pos.up(), EnumFacing.UP) > 0) {
                     //Positive Y is receiving power
+
+//                    System.out.println(System.getProperty("user.dir"));
+                    String[] command = {"cmd.exe","/C","test.bat"};
+                    ProcessBuilder pb = new ProcessBuilder(command);
+                    pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+                    pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+                    try {
+                        pb.start();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }else if (worldIn.getRedstonePower(pos.down(), EnumFacing.DOWN) > 0) {
                     //Negative Y is receiving power
                 } else {
