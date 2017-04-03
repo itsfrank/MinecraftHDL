@@ -18,28 +18,24 @@ public class LogicGates {
     }
 
     public static Gate IO(){
-        Gate gate = new Gate(1, 1, 1, 1, 1, 0, 0);
+        Gate gate = new Gate(1, 1, 1, 1, 1, 0, 0, new int[]{0});
         gate.setBlock(0, 0, 0, Blocks.WOOL.getDefaultState());
         return gate;
     }
 
     public static Gate NOT(){
-        Gate gate = new Gate(1, 1, 5, 1, 1, 0, 0);
+        Gate gate = new Gate(1, 1, 3, 1, 1, 0, 0, new int[]{0});
         gate.setBlock(0, 0, 0, Blocks.WOOL.getDefaultState());
         gate.setBlock(0, 0, 1, Blocks.REDSTONE_TORCH.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_TORCH, "facing"), EnumFacing.SOUTH));
         gate.setBlock(0, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
-        gate.setBlock(0, 0, 3, Blocks.REDSTONE_WIRE.getDefaultState());
-        gate.setBlock(0, 0, 4, Blocks.WOOL.getDefaultState());
         return gate;
     }
 
     public static Gate RELAY(){
-        Gate gate = new Gate(1, 1, 5, 1, 1, 0, 0);
-        gate.setBlock(0, 0, 0, Blocks.WOOL.getDefaultState());
-        gate.setBlock(0, 0, 1, Blocks.REDSTONE_WIRE.getDefaultState());
-        gate.setBlock(0, 0, 2, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
-        gate.setBlock(0, 0, 3, Blocks.REDSTONE_WIRE.getDefaultState());
-        gate.setBlock(0, 0, 4, Blocks.WOOL.getDefaultState());
+        Gate gate = new Gate(1, 1, 3, 1, 1, 0, 0, new int[]{0});
+        gate.setBlock(0, 0, 0, Blocks.REDSTONE_WIRE.getDefaultState());
+        gate.setBlock(0, 0, 1, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+        gate.setBlock(0, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
         return gate;
     }
 
@@ -50,11 +46,10 @@ public class LogicGates {
 
         else width = (inputs * 2) - 1;
 
-        Gate gate = new Gate(width, 2, 5, inputs, 1, 1, 0);
+        Gate gate = new Gate(width, 2, 4, inputs, 1, 1, 0, new int[]{0});
 
         gate.setBlock(0, 0, 2, Blocks.REDSTONE_TORCH.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_TORCH, "facing"), EnumFacing.SOUTH));
         gate.setBlock(0, 0, 3, Blocks.REDSTONE_WIRE.getDefaultState());
-        gate.setBlock(0, 0, 4, Blocks.WOOL.getDefaultState());
 
         for (int i = 0; i < width; i+=2) {
             gate.setBlock(i, 0, 0, Blocks.WOOL.getDefaultState());
@@ -83,10 +78,9 @@ public class LogicGates {
         if (inputs == 1) width = 1;
         else width = (inputs * 2) - 1;
 
-        Gate gate = new Gate(width, 2, 5, inputs, 1, 1, 0);
+        Gate gate = new Gate(width, 2, 4, inputs, 1, 1, 0, new int[]{0});
 
         gate.setBlock(0, 0, 3, Blocks.REDSTONE_WIRE.getDefaultState());
-        gate.setBlock(0, 0, 4, Blocks.WOOL.getDefaultState());
 
         for (int i = 0; i < width; i+=2) {
             gate.setBlock(i, 0, 0, Blocks.WOOL.getDefaultState());

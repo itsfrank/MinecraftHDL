@@ -18,14 +18,26 @@ public class VerticalConstraintGraph {
 
     ArrayList<Pair<Integer, Integer>> edges_done = new ArrayList<>();
 
+    public int[] getEdgeIDList(int id) {
+        Node n = nodes.get(id);
+
+        int[] vc_ids = new int[n.edges.size()];
+
+        for (int i = 0; i < n.edges.size(); i++){
+            vc_ids[i] = n.edges.get(i).to.net_id;
+        }
+
+        return vc_ids;
+    }
+
     private static class Node {
         public boolean routed = false;
         public ArrayList<Edge> edges = new ArrayList<>();
 
-        int id;
+        int net_id;
 
         public Node(int net_id){
-            this.id = net_id;
+            this.net_id = net_id;
         }
     }
 
@@ -63,7 +75,9 @@ public class VerticalConstraintGraph {
 
                     out_net.setOutNet(pair.top, out_partner);
 
-                    out_net.AssignOutColX(pin_pairs.addEmptyPair());
+                    int x_max = out_net.AssignOutColX(pin_pairs.addEmptyPair());
+
+                    out_partner.newXMax(x_max);
 
                     nets.put(out_net.getId(), out_net);
 
@@ -75,6 +89,7 @@ public class VerticalConstraintGraph {
 
             }
         }
+        System.out.println();
     }
 
     public boolean edgeDone(int top, int bot){
@@ -90,7 +105,7 @@ public class VerticalConstraintGraph {
             System.out.println("");
 
         }
-        if (n.id == cycle_id) return true;
+        if (n.net_id == cycle_id) return true;
         for (Edge e : n.edges){
             if (cycle(e.to, cycle_id)){
                 return  true;

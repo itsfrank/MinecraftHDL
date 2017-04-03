@@ -15,9 +15,8 @@ public class Net {
     int id;
     int track = -1;
 
-    private ArrayList<Integer> dogleg_splits = new ArrayList<>();
     private ArrayList<Pin> pins = new ArrayList<>();
-
+    Pin top_pin;
 
     int x_min = Integer.MAX_VALUE, x_max = -1;
 
@@ -42,6 +41,7 @@ public class Net {
         if (pins.contains(p)) return;
         p.setNet(this.id, dogleg);
         this.pins.add(p);
+        if (p.top) this.top_pin = p;
 
         if (p.xPos() < x_min) this.x_min = p.xPos();
         if (p.xPos() > x_max) this.x_max = p.xPos();
@@ -69,10 +69,11 @@ public class Net {
         this.out_partner.pins.remove(out_pin);
     }
 
-    public void AssignOutColX(int out_col_x){
+    public int AssignOutColX(int out_col_x){
         this.x_max = out_col_x;
         this.x_min = out_pin.xPos();
         this.out_partner.x_max = out_col_x;
+        return out_col_x;
     }
 
     public boolean isOutpath(){
@@ -91,4 +92,11 @@ public class Net {
         return pins;
     }
 
+    public void newXMax(int x_max) {
+        this.x_max = x_max;
+    }
+
+    public int trackZ(){
+        return (this.track == 0) ? 2 : (this.track * 3) + 2;
+    }
 }

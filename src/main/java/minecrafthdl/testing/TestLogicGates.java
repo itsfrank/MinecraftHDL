@@ -20,13 +20,13 @@ public class TestLogicGates extends LogicGates {
     }
 
     public static Gate IO(){
-        TestGate gate = new TestGate(1, 1, 1, 1, 1, 0, 0);
+        TestGate gate = new TestGate(1, 1, 1, 1, 1, 0, 0, new int[]{0});
         gate.setBlock(0, 0, 0, "x");
         return gate;
     }
 
     public static Gate NOT(){
-        TestGate gate = new TestGate(1, 1, 5, 1, 1, 0, 0);
+        TestGate gate = new TestGate(1, 1, 5, 1, 1, 0, 0, new int[]{0});
         gate.setBlock(0, 0, 0, "x");
         gate.setBlock(0, 0, 1, "i");
         gate.setBlock(0, 0, 2, "*");
@@ -36,7 +36,7 @@ public class TestLogicGates extends LogicGates {
     }
 
     public static Gate RELAY(){
-        TestGate gate = new TestGate(1, 1, 5, 1, 1, 0, 0);
+        TestGate gate = new TestGate(1, 1, 5, 1, 1, 0, 0, new int[]{0});
         gate.setBlock(0, 0, 0, "x");
         gate.setBlock(0, 0, 1, "*");
         gate.setBlock(0, 0, 2, ">");
@@ -52,7 +52,7 @@ public class TestLogicGates extends LogicGates {
 
         else width = (inputs * 2) - 1;
 
-        TestGate gate = new TestGate(width, 2, 5, inputs, 1, 1, 0);
+        TestGate gate = new TestGate(width, 2, 5, inputs, 1, 1, 0, new int[]{0});
 
         gate.setBlock(0, 0, 2, "i");
         gate.setBlock(0, 0, 3, "*");
@@ -85,7 +85,7 @@ public class TestLogicGates extends LogicGates {
         if (inputs == 1) width = 1;
         else width = (inputs * 2) - 1;
 
-        TestGate gate = new TestGate(width, 2, 5, inputs, 1, 1, 0);
+        TestGate gate = new TestGate(width, 2, 5, inputs, 1, 1, 0, new int[]{0});
 
         gate.setBlock(0, 0, 3, "*");
         gate.setBlock(0, 0, 4, "x");

@@ -129,14 +129,15 @@ public class Router {
 
         while (!vcg.done()){
             for (PinPair pair : pin_pairs.getPairs()){
+
                 if (!pair.top.empty() && vcg.canRoute(pair.top.netID())){
-                    channel.findAvailableTrack(nets.get(pair.top.netID()));
+                    channel.findAvailableTrack(nets.get(pair.top.netID()), vcg);
                     vcg.routed(pair.top.netID());
                     break;
                 }
 
                 if (!pair.bot.empty() && vcg.canRoute(pair.bot.netID())){
-                    channel.findAvailableTrack(nets.get(pair.bot.netID()));
+                    channel.findAvailableTrack(nets.get(pair.bot.netID()), vcg);
                     vcg.routed(pair.bot.netID());
                     break;
                 }

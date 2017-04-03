@@ -12,8 +12,8 @@ public class TestGate extends Gate {
 
     private ArrayList<ArrayList<ArrayList<String>>> sblocks;
 
-    public TestGate(int sizeX, int sizeY, int sizeZ, int num_inputs, int num_outputs, int input_spacing, int output_spacing) {
-        super(sizeX, sizeY, sizeZ, num_inputs, num_outputs, input_spacing, output_spacing);
+    public TestGate(int sizeX, int sizeY, int sizeZ, int num_inputs, int num_outputs, int input_spacing, int output_spacing, int[] output_lines) {
+        super(sizeX, sizeY, sizeZ, num_inputs, num_outputs, input_spacing, output_spacing, output_lines);
 
         this.sblocks = new ArrayList<ArrayList<ArrayList<String>>>();
         for (int x = 0; x < sizeX; x++) {

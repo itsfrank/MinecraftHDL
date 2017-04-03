@@ -7,6 +7,7 @@ import minecrafthdl.synthesis.routing.Router;
 import minecrafthdl.synthesis.routing.pins.GatePins;
 import minecrafthdl.synthesis.routing.pins.PinsArray;
 import minecrafthdl.testing.TestLogicGates;
+import net.minecraft.init.Blocks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,7 +142,7 @@ public class IntermediateCircuit {
             ArrayList<Vertex> top_vertices = vertex_layers.get(i);
             ArrayList<Gate> top_gates = gate_layers.get(i);
             ArrayList<Vertex> bottom_vertices = vertex_layers.get(i+1);
-            ArrayList<Gate> bottom_gates = gate_layers.get(i+1);
+            ArrayList<Gate> bottom_gates = gate_layers.get(i + 1);
 
             Router.PinInitRtn rtn = Router.initializePins(top_vertices, top_gates, bottom_vertices, bottom_gates, 1);
 
@@ -163,7 +164,7 @@ public class IntermediateCircuit {
 
         int size_x = 0;
         int size_y = 0;
-        int size_z = this.gate_layers.size() == 0 ? 0 : (this.gate_layers.size() - 1) * 5;
+        int size_z = 0;
 
         int[] layers_size_z = new int[this.gate_layers.size()];
 
@@ -185,16 +186,36 @@ public class IntermediateCircuit {
             layers_size_z[this.gate_layers.indexOf(layer)] = this_size_z;
         }
 
+        if (size_y < 3) size_y = 3;
+
+        for (Channel c : this.channels){
+            if (c.sizeX() + 1 > size_x) size_x = c.sizeX() + 1;
+            size_z += c.sizeZ() + 1;
+        }
+
         Circuit circuit = new Circuit(size_x, size_y, size_z);
 
         int z_offset = 0;
         for (int i = 0; i < this.gate_layers.size(); i++) {
             int x_offset = 0;
-            for (Circuit c : this.gate_layers.get(i)){
-                circuit.insertCircuit(x_offset, 0, z_offset, c);
-                x_offset += 1 + c.getSizeX();
+            for (Gate g : this.gate_layers.get(i)){
+                circuit.insertCircuit(x_offset, 0, z_offset, g);
+
+                if (g.getSizeZ() - 1 < layers_size_z[i]) {
+                    for (int z = g.getSizeZ(); z <= layers_size_z[i]; z++){
+                        circuit.setBlock(x_offset, 0, z_offset + z, Blocks.REDSTONE_WIRE.getDefaultState());
+                    }
+                }
+
+                x_offset += 1 + g.getSizeX();
             }
-            z_offset += 5 + layers_size_z[i];
+            z_offset += layers_size_z[i];
+
+            if (i < this.gate_layers.size() - 1) {
+                Channel c = this.channels.get(i);
+                circuit.insertCircuit(0, 0, z_offset, c.genChannelCircuit());
+                z_offset += c.sizeZ();
+            }
         }
 
         return circuit;

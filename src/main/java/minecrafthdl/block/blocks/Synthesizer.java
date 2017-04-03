@@ -17,8 +17,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.io.IOException;
 import javax.annotation.Nullable;
+import java.io.IOException;
 
 /**
  * Created by Francis on 10/28/2016.
@@ -53,6 +53,7 @@ public class Synthesizer extends BasicBlock {
                     IntermediateCircuit ic = new IntermediateCircuit();
                     ic.loadGraph(Demo.create4bitmuxgraph());
                     ic.buildGates();
+                    ic.routeChannels();
                     ic.genCircuit().placeInWorld(worldIn, pos.north(), EnumFacing.NORTH);
 
                 }else if (worldIn.getRedstonePower(pos.east(), EnumFacing.EAST) > 0) {
