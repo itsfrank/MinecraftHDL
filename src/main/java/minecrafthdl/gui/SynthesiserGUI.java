@@ -1,8 +1,10 @@
 package minecrafthdl.gui;
 
+import minecrafthdl.block.blocks.Synthesizer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import java.io.File;
@@ -36,6 +38,20 @@ public class SynthesiserGUI extends GuiScreen {
 
     int start_file_index = 0;
 
+    int block_x, block_y, block_z;
+    World world;
+
+
+    public SynthesiserGUI(World world, int x, int y, int z) {
+        super();
+
+        this.world = world;
+        this.block_x = x;
+        this.block_y = y;
+        this.block_z = z;
+    }
+
+
     @Override
     public void initGui() {
 
@@ -63,8 +79,12 @@ public class SynthesiserGUI extends GuiScreen {
         ArrayList<String> files = new ArrayList<>();
         File folder = new File(file_directory);
 
+        if (folder == null) {
+            folder.mkdir();
+        }
+
         for (File f : folder.listFiles()){
-            if (f.getName().endsWith(".v")) {
+            if (f.getName().toLowerCase().endsWith(".json")) {
                 files.add(f.getName());
             }
         }
@@ -165,6 +185,14 @@ public class SynthesiserGUI extends GuiScreen {
     protected void actionPerformed(GuiButton button) throws IOException {
         System.out.println("Hi");
         if (button == this.synthesize_button) {
+            if (this.selected_file < 0) {
+                this.mc.displayGuiScreen(null);
+                if (this.mc.currentScreen == null)
+                    this.mc.setIngameFocus();
+            }
+
+            Synthesizer.file_to_gen = this.file_directory + "/" + this.file_names.get(this.selected_file);
+
             this.mc.displayGuiScreen(null);
             if (this.mc.currentScreen == null)
                 this.mc.setIngameFocus();
@@ -175,6 +203,8 @@ public class SynthesiserGUI extends GuiScreen {
         if (button == this.down_button){
             if (this.start_file_index + 6 < this.file_names.size() - 1) this.start_file_index += 1;
         }
+
+
 
         super.actionPerformed(button);
     }

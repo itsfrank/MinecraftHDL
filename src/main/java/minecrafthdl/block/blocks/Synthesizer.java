@@ -1,6 +1,6 @@
 package minecrafthdl.block.blocks;
 
-import minecrafthdl.Demo;
+import GraphBuilder.GraphBuilder;
 import minecrafthdl.MinecraftHDL;
 import minecrafthdl.block.BasicBlock;
 import minecrafthdl.gui.MinecraftHDLGuiHandler;
@@ -24,6 +24,9 @@ import java.io.IOException;
  * Created by Francis on 10/28/2016.
  */
 public class Synthesizer extends BasicBlock {
+
+    public static String file_to_gen;
+
 
     public static final PropertyBool TRIGGERED = PropertyBool.create("triggered");
 
@@ -50,11 +53,20 @@ public class Synthesizer extends BasicBlock {
                 if (worldIn.getRedstonePower(pos.north(), EnumFacing.NORTH) > 0) {
                     //Negative Z is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
-                    IntermediateCircuit ic = new IntermediateCircuit();
-                    ic.loadGraph(Demo.create4bitmuxgraph());
-                    ic.buildGates();
-                    ic.routeChannels();
-                    ic.genCircuit().placeInWorld(worldIn, pos.north(), EnumFacing.NORTH);
+
+                    if (Synthesizer.file_to_gen != null){
+                        System.out.println(1);
+
+                        IntermediateCircuit ic = new IntermediateCircuit();
+                        System.out.println(2);
+                        ic.loadGraph(GraphBuilder.buildGraph(Synthesizer.file_to_gen));
+                        System.out.println(3);
+                        ic.buildGates();
+                        System.out.println(4);
+                        ic.routeChannels();
+                        System.out.println(5);
+                        ic.genCircuit().placeInWorld(worldIn, pos, EnumFacing.NORTH);
+                    }
 
                 }else if (worldIn.getRedstonePower(pos.east(), EnumFacing.EAST) > 0) {
                     //Negative X is receiving power
@@ -62,7 +74,7 @@ public class Synthesizer extends BasicBlock {
                 }else if (worldIn.getRedstonePower(pos.south(), EnumFacing.SOUTH) > 0) {
                     //Positive Z is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
-                    LogicGates.RELAY().placeInWorld(worldIn, pos, EnumFacing.SOUTH);
+                    LogicGates.MUX().placeInWorld(worldIn, pos, EnumFacing.SOUTH);
                 }else if (worldIn.getRedstonePower(pos.west(), EnumFacing.WEST) > 0) {
                     //Positive X is receiving power
                 }else if (worldIn.getRedstonePower(pos.up(), EnumFacing.UP) > 0) {

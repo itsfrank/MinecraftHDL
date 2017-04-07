@@ -14,13 +14,19 @@ public class Graph {
 	
 	public void addVertex(Vertex v){
 			vertices.add(v);
-
-		
 	}
 	
 	
 	public void addEdge(Vertex v1, Vertex v2){
-		
+
+		if (v2.type == VertexType.FUNCTION){
+			Function f = (Function) v2;
+			if (f.func_type == FunctionType.MUX){
+				MuxVertex m = (MuxVertex) f;
+
+			}
+		}
+
 		v1.addToNext(v2);
 		v2.addToBefore(v1);
 	
@@ -63,5 +69,13 @@ public class Graph {
 		
 		return vertices;
 		
+	}
+
+	public void print(){
+		System.out.println(this.vertices.size());
+
+		for (Vertex v : this.vertices){
+			v.print();
+		}
 	}
 }

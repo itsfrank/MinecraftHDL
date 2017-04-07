@@ -97,4 +97,79 @@ public class LogicGates {
         return gate;
     }
 
+    public static Gate XOR(){
+        Gate gate = new Gate(3, 2, 6, 2, 1, 1, 0, new int[]{0});
+        gate.setBlock(0, 0, 0, Blocks.WOOL.getDefaultState());
+        gate.setBlock(0, 0, 1, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+        gate.setBlock(0, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
+        gate.setBlock(0, 0, 3, Blocks.WOOL.getDefaultState());
+        gate.setBlock(0, 0, 4, Blocks.REDSTONE_WIRE.getDefaultState());
+
+        gate.setBlock(0, 1, 0, Blocks.STICKY_PISTON.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.STICKY_PISTON, "facing"), EnumFacing.SOUTH));
+        gate.setBlock(0, 1, 1, Blocks.WOOL.getDefaultState());
+        gate.setBlock(0, 1, 3, Blocks.REDSTONE_WIRE.getDefaultState());
+
+
+        gate.setBlock(2, 0, 0, Blocks.WOOL.getDefaultState());
+        gate.setBlock(2, 0, 1, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+        gate.setBlock(2, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
+        gate.setBlock(2, 0, 3, Blocks.WOOL.getDefaultState());
+        gate.setBlock(2, 0, 4, Blocks.REDSTONE_WIRE.getDefaultState());
+
+        gate.setBlock(2, 1, 0, Blocks.STICKY_PISTON.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.STICKY_PISTON, "facing"), EnumFacing.SOUTH));
+        gate.setBlock(2, 1, 1, Blocks.WOOL.getDefaultState());
+        gate.setBlock(2, 1, 3, Blocks.REDSTONE_WIRE.getDefaultState());
+
+        gate.setBlock(1, 0, 4, Blocks.REDSTONE_WIRE.getDefaultState());
+        gate.setBlock(1, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
+        gate.setBlock(0, 0, 5, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+
+        return gate;
+    }
+
+    public static Gate MUX() {
+        Gate gate = new Gate(5, 2, 6, 3, 1, 1, 0, new int[]{0});
+
+        gate.setBlock(0, 0, 0, Blocks.WOOL.getDefaultState());
+        gate.setBlock(0, 0, 1, Blocks.WOOL.getDefaultState());
+        gate.setBlock(0, 0, 2, Blocks.WOOL.getDefaultState());
+        gate.setBlock(0, 0, 3, Blocks.REDSTONE_TORCH.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_TORCH, "facing"), EnumFacing.SOUTH));
+        gate.setBlock(0, 0, 4, Blocks.REDSTONE_WIRE.getDefaultState());
+        gate.setBlock(0, 0, 5, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+
+        gate.setBlock(1, 0, 2, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.EAST));
+        gate.setBlock(1, 0, 4, Blocks.REDSTONE_WIRE.getDefaultState());
+
+        gate.setBlock(2, 0, 0, Blocks.WOOL.getDefaultState());
+        gate.setBlock(2, 0, 1, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+        gate.setBlock(2, 0, 2, Blocks.WOOL.getDefaultState());
+        gate.setBlock(2, 0, 4, Blocks.REDSTONE_WIRE.getDefaultState());
+
+        gate.setBlock(3, 0, 2, Blocks.REDSTONE_TORCH.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_TORCH, "facing"), EnumFacing.EAST));
+        gate.setBlock(3, 0, 4, Blocks.REDSTONE_TORCH.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_TORCH, "facing"), EnumFacing.WEST));
+
+        gate.setBlock(4, 0, 0, Blocks.WOOL.getDefaultState());
+        gate.setBlock(4, 0, 1, Blocks.REDSTONE_TORCH.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_TORCH, "facing"), EnumFacing.SOUTH));
+        gate.setBlock(4, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_WIRE, "power"), 10));
+        gate.setBlock(4, 0, 3, Blocks.REDSTONE_WIRE.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_WIRE, "power"), 10));
+        gate.setBlock(4, 0, 4, Blocks.WOOL.getDefaultState());
+
+        gate.setBlock(0, 1, 0, Blocks.REDSTONE_TORCH.getDefaultState());
+        gate.setBlock(0, 1, 1, Blocks.REDSTONE_WIRE.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_WIRE, "power"), 10));
+        gate.setBlock(0, 1, 2, Blocks.REDSTONE_WIRE.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.REDSTONE_WIRE, "power"), 10));
+
+        return gate;
+    }
+
+    public static Gate LOW(){
+        Gate gate = new Gate(1, 1, 1, 1, 1, 0, 0, new int[]{0});
+        gate.setBlock(0, 0, 0, Blocks.WOOL.getDefaultState());
+        return gate;
+    }
+
+    public static Gate HIGH(){
+        Gate gate = new Gate(1, 1, 1, 1, 1, 0, 0, new int[]{0});
+        gate.setBlock(0, 0, 0, Blocks.REDSTONE_TORCH.getDefaultState());
+        return gate;
+    }
 }

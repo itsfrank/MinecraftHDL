@@ -1,12 +1,12 @@
 package MinecraftGraph;
 
 public class Function extends Vertex {
-	private FunctionType func_type;
-	private int id;
+	public FunctionType func_type;
+	protected int id;
 	
-	public Function(int i, VertexType v_t, FunctionType f_t, int x){
+	public Function(int i, FunctionType f_t, int x){
 		
-		super.type=v_t;
+		super.type=VertexType.FUNCTION;
 		super.bits_n=x;
 		id=i;
 		this.func_type=f_t;
@@ -29,7 +29,7 @@ public class Function extends Vertex {
 	public void addToBefore(Vertex v){
 		super.addToBefore(v);
 	}
-	
+
 	@Override
 	public String getID(){
 		return String.valueOf(id);

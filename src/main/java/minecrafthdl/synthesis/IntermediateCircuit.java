@@ -23,6 +23,8 @@ public class IntermediateCircuit {
 
 
     public void loadGraph(Graph graph) {
+        System.out.println("Graph built");
+
         ArrayList<Vertex> finished = new ArrayList<>();
         ArrayList<Vertex> in_process = new ArrayList<>();
         ArrayList<Vertex> process_done = new ArrayList<>();
@@ -31,13 +33,18 @@ public class IntermediateCircuit {
         for (Vertex v : graph.getVertices()) {
             if (v.getType() == VertexType.INPUT) {
                 in_process.add(v);
+            } else if (v.getType() == VertexType.FUNCTION){
+                Function f = (Function) v;
+                if (f.func_type == FunctionType.HIGH || f.func_type == FunctionType.LOW) in_process.add(v);
             }
+
         }
 
         int layer_num = 0;
 
         while (in_process.size() > 0){
-            vertex_layers.add(new ArrayList<Vertex>());
+            int size = in_process.size();
+            vertex_layers.add(new ArrayList<>());
             for (Vertex v : in_process){
                 boolean valid = true;
                 for (Vertex p : v.getBefore()){
@@ -66,6 +73,11 @@ public class IntermediateCircuit {
             process_done.clear();
             to_process.clear();
             layer_num++;
+
+//            if (size == in_process.size()){
+//                System.out.println("");
+//                throw new RuntimeException("INFINITE LOOP");
+//            }
         }
 
         for (int i = 0; i < vertex_layers.size() - 1; i++){
@@ -78,7 +90,8 @@ public class IntermediateCircuit {
 
                 for (Vertex next : v.getNext()){
                     if (!next_layer.contains(next)){
-                        Vertex relay = new Function(1, VertexType.FUNCTION, FunctionType.RELAY, 1);
+                        Vertex relay = new Function(1, FunctionType.RELAY, 1);
+
                         next_layer.add(relay);
 
                         removeFromNext.add(next);
@@ -89,6 +102,8 @@ public class IntermediateCircuit {
 
                         relay.addToNext(next);
                         next.addToBefore(relay);
+
+                        next.handleRelay(v, relay);
                     }
                 }
 
@@ -229,10 +244,18 @@ public class IntermediateCircuit {
             return Circuit.TEST? TestLogicGates.OR(num_inputs) : LogicGates.OR(num_inputs);
         } else if ( func_type == FunctionType.INV){
             return Circuit.TEST? TestLogicGates.NOT() : LogicGates.NOT();
-        } else if ( func_type == FunctionType.RELAY){
-            return Circuit.TEST? TestLogicGates.RELAY() : LogicGates.RELAY();
-        } else if ( func_type == FunctionType.IO){
+        } else if ( func_type == FunctionType.RELAY) {
+            return Circuit.TEST ? TestLogicGates.RELAY() : LogicGates.RELAY();
+        }else if ( func_type == FunctionType.XOR){
+            return Circuit.TEST? TestLogicGates.IO() : LogicGates.XOR();
+        }else if ( func_type == FunctionType.MUX){
+            return Circuit.TEST? TestLogicGates.IO() : LogicGates.MUX();
+        }else if ( func_type == FunctionType.IO){
             return Circuit.TEST? TestLogicGates.IO() : LogicGates.IO();
+        }else if ( func_type == FunctionType.HIGH){
+            return Circuit.TEST? TestLogicGates.IO() : LogicGates.HIGH();
+        }else if ( func_type == FunctionType.LOW){
+            return Circuit.TEST? TestLogicGates.IO() : LogicGates.LOW();
         }
         else throw new RuntimeException("NO SUCH GATE AVAILABLE");
     }

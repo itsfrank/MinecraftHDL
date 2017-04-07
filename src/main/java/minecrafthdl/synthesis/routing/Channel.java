@@ -20,14 +20,21 @@ public class Channel {
     public ArrayList<ArrayList<Net>> tracks = new ArrayList<>();
 
     public void findAvailableTrack(Net net, VerticalConstraintGraph vcg){
+        if (net == null){
+            return;
+        }
         int highest_track = 0;
-
-        for (int vc_id : vcg.getEdgeIDList(net.id)){
-            for (ArrayList<Net> track : this.tracks){
-                for (Net n : track){
-                    if (n.id == vc_id && n.track >= highest_track) highest_track = n.track + 1;
+        try {
+            for (int vc_id : vcg.getEdgeIDList(net.id)){
+                for (ArrayList<Net> track : this.tracks){
+                    for (Net n : track){
+                        if (n.id == vc_id && n.track >= highest_track) highest_track = n.track + 1;
+                    }
                 }
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         for(int i = highest_track; i < this.tracks.size(); i++){

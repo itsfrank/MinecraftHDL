@@ -1,7 +1,5 @@
 package MinecraftGraph;
 
-import java.util.ArrayList;
-
 public class In_output extends Vertex{
 	private String name;
 	
@@ -18,7 +16,6 @@ public class In_output extends Vertex{
 			return name;
 		
 	}
-	
 
 
 }

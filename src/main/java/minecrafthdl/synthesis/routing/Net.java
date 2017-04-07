@@ -61,7 +61,7 @@ public class Net {
         this.pins.add(out_pin);
         this.outpath = true;
         this.out_pin = out_pin;
-
+        this.top_pin = out_pin;
         out_pin.setNet(this.id, true);
 
         this.out_partner = original;

@@ -18,8 +18,8 @@ public class Demo {
         mux.addVertex(i);
         mux.addVertex(j);
 
-        Vertex not_1 = new Function(1, VertexType.FUNCTION, FunctionType.INV, 1);
-        Vertex not_2 = new Function(1, VertexType.FUNCTION, FunctionType.INV, 1);
+        Vertex not_1 = new Function(1, FunctionType.INV, 1);
+        Vertex not_2 = new Function(1, FunctionType.INV, 1);
 
         mux.addVertex(not_1);
         mux.addVertex(not_2);
@@ -34,11 +34,11 @@ public class Demo {
         mux.addVertex(c);
         mux.addVertex(d);
 
-        Vertex and_1 = new Function(1, VertexType.FUNCTION, FunctionType.AND, 3);
-        Vertex and_2 = new Function(1, VertexType.FUNCTION, FunctionType.AND, 3);
-        Vertex and_3 = new Function(1, VertexType.FUNCTION, FunctionType.AND, 3);
-        Vertex and_4 = new Function(1, VertexType.FUNCTION, FunctionType.AND, 3);
-        Vertex or_1 = new Function(1, VertexType.FUNCTION, FunctionType.OR, 4);
+        Vertex and_1 = new Function(1, FunctionType.AND, 3);
+        Vertex and_2 = new Function(1, FunctionType.AND, 3);
+        Vertex and_3 = new Function(1, FunctionType.AND, 3);
+        Vertex and_4 = new Function(1, FunctionType.AND, 3);
+        Vertex or_1 = new Function(1, FunctionType.OR, 4);
 
         mux.addVertex(and_1);
         mux.addVertex(and_2);

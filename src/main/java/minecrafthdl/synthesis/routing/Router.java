@@ -1,11 +1,11 @@
 package minecrafthdl.synthesis.routing;
 
+import MinecraftGraph.Function;
+import MinecraftGraph.FunctionType;
 import MinecraftGraph.Vertex;
+import MinecraftGraph.VertexType;
 import minecrafthdl.synthesis.Gate;
-import minecrafthdl.synthesis.routing.pins.GatePins;
-import minecrafthdl.synthesis.routing.pins.Pin;
-import minecrafthdl.synthesis.routing.pins.PinPair;
-import minecrafthdl.synthesis.routing.pins.PinsArray;
+import minecrafthdl.synthesis.routing.pins.*;
 import minecrafthdl.synthesis.routing.vcg.VerticalConstraintGraph;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class Router {
         //top pins
         int top_offset = 0;
         for (int i = 0; i < top_vertices.size(); i++){
-            GatePins gate_pins = new GatePins(top_gates.get(i), top_offset, true);
+            GatePins gate_pins = new GatePins(top_gates.get(i), top_vertices.get(i), top_offset, true);
             pin_map.put(top_vertices.get(i), gate_pins);
 
             top_offset += top_gates.get(i).getSizeX() + gate_spacing;
@@ -51,7 +51,14 @@ public class Router {
         //bottom pins
         int bottom_offset = 0;
         for (int i = 0; i < bottom_vertices.size(); i++){
-            GatePins gate_pins = new GatePins(bottom_gates.get(i), bottom_offset, false);
+            Vertex v = bottom_vertices.get(i);
+
+            GatePins gate_pins = null;
+            if (v.type == VertexType.FUNCTION && ((Function)v).func_type == FunctionType.MUX){
+                gate_pins = new MuxPins(bottom_gates.get(i), bottom_vertices.get(i), bottom_offset, false);
+            } else {
+                gate_pins = new GatePins(bottom_gates.get(i), bottom_vertices.get(i), bottom_offset, false);
+            }
             pin_map.put(bottom_vertices.get(i), gate_pins);
 
             bottom_offset += bottom_gates.get(i).getSizeX() + gate_spacing;
@@ -88,7 +95,7 @@ public class Router {
             GatePins gate = pin_map.get(v);
 
             while (gate.hasNextPin()){
-                Pin next_pin = gate.getNextPin();
+                Pin next_pin = gate.getNextPin(v);
                 if (next_pin.empty() || next_pin.hasNet()) continue;
 
                 Net net = new Net();
@@ -96,7 +103,7 @@ public class Router {
                 net.addPin(next_pin, false);
 
                 for (Vertex next_vertex : v.getNext()){
-                    net.addPin(pin_map.get(next_vertex).getNextPin(), false);
+                    net.addPin(pin_map.get(next_vertex).getNextPin(v), false);
                 }
             }
         }
@@ -105,7 +112,7 @@ public class Router {
             GatePins gate = pin_map.get(v);
 
             while (gate.hasNextPin()){
-                Pin next_pin = gate.getNextPin();
+                Pin next_pin = gate.getNextPin(v);
                 if (next_pin.empty() || next_pin.hasNet()) continue;
 
                 Net net = new Net();
@@ -113,7 +120,7 @@ public class Router {
                 net.addPin(next_pin, false);
 
                 for (Vertex next_vertex : v.getNext()){
-                    net.addPin(pin_map.get(next_vertex).getNextPin(), false);
+                    net.addPin(pin_map.get(next_vertex).getNextPin(v), false);
                 }
             }
         }

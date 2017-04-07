@@ -1,13 +1,8 @@
 package minecrafthdl;
 
-import minecrafthdl.synthesis.Circuit;
 import minecrafthdl.synthesis.CircuitTest;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-
-import java.util.ArrayList;
 
 /**
  * Created by Francis on 10/28/2016.
@@ -21,6 +16,14 @@ public class Utils {
             }
         }
         return null;
+    }
+
+    public static void printProperties(Block block){
+        for (IProperty prop : block.getBlockState().getProperties()){
+            System.out.println(prop.getName());
+            System.out.println(prop.getAllowedValues());
+
+        }
     }
 
     public static void printCircuit(CircuitTest circuit){
