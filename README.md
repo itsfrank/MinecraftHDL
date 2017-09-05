@@ -24,4 +24,6 @@ $ git remote add origin https://github.com/itsFrank/MinecraftHDL.git
 $ git pull origin master
 ```
 
+**Delete the package 'com.example.examplemod' and all its contents
+
 ## 6. Branch out from master and have fun!
