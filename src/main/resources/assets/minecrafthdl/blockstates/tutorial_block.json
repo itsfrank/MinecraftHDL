@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "triggered=true": {
+      "model": "minecrafthdl:tutorial_block"
+    },
+    "triggered=false": {
+      "model": "minecrafthdl:tutorial_block"
+    }
+  }
+}

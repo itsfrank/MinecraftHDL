@@ -1,0 +1,5 @@
+read_verilog ./autoyosys/tmp.v
+hierarchy -check
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+json -o ./autoyosys/tmp.json
