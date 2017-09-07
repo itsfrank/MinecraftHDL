@@ -33,11 +33,14 @@ This mod has the potential to destroy massive chunks of your world! It is intend
     Copy the MinecraftHDL JAR in the mods directory in there  
 
 4. *** **Mac OSX Only** *** Install yosys (yosys is an open source verilog synthesis tool)  
-    Open a terminal window - Press CMD + Space and type `Terminal`  
+    Open a terminal window - Press CMD + Space and type `Terminal` 
+
     -- Install Homebrew (skip if already installed):  
-    `$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`  
+    `$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` 
+    
     -- Install yosys  
     `$ brew install yosys`  
+    
     To make sure it's installed properly, in your terminal run "$ yosys" you should see license announcement and now be in the yosys shell. type "exit" to quit.  
 
 
