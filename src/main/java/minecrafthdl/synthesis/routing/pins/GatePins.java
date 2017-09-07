@@ -1,6 +1,7 @@
 package minecrafthdl.synthesis.routing.pins;
 
 import MinecraftGraph.Vertex;
+import minecrafthdl.MHDLException;
 import minecrafthdl.synthesis.Gate;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class GatePins {
 
     private final Vertex vertex;
-    protected ArrayList<Pin> pins = new ArrayList<>();
+    protected ArrayList<Pin> pins = new ArrayList<Pin>();
 
     protected int next_free_input_pin = 0;
     protected int next_free_output_pin = 0;
@@ -50,7 +51,9 @@ public class GatePins {
     }
 
     public Pin getNextPin(Vertex v){
-        if (next_free_input_pin == this.pins.size()) throw new RuntimeException("To many input pins requested from gate");
+        if (next_free_input_pin == this.pins.size()) {
+            throw new MHDLException("To many input pins requested from gate");
+        }
 
         this.next_free_input_pin += 1;
         return pins.get(this.next_free_input_pin - 1);

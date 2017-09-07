@@ -7,8 +7,8 @@ public abstract class Vertex {
 	public VertexType type;
 	protected int bits_n;
 	private int counter=0;
-	private ArrayList<Vertex> next=new ArrayList<>();
-	private ArrayList<Vertex> before=new ArrayList<>();
+	private ArrayList<Vertex> next=new ArrayList<Vertex>();
+	private ArrayList<Vertex> before=new ArrayList<Vertex>();
 	
 	
 	

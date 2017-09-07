@@ -1,5 +1,7 @@
 package minecrafthdl.synthesis.routing.pins;
 
+import minecrafthdl.MHDLException;
+
 import java.util.ArrayList;
 
 /**
@@ -10,7 +12,7 @@ public class PinsArray {
     ArrayList<PinPair> pairs;
 
     public PinsArray() {
-        pairs = new ArrayList<>();
+        pairs = new ArrayList<PinPair>();
     }
 
 
@@ -32,10 +34,10 @@ public class PinsArray {
 
             if(top){
                 if (pair.top.empty()) pair.top = p;
-                else throw new RuntimeException("Attempting to overwrite pin in pair");
+                else throw new MHDLException("Attempting to overwrite pin in pair");
             } else {
                 if (pair.bot.empty()) pair.bot = p;
-                else throw new RuntimeException("Attempting to overwrite pin in pair");
+                else throw new MHDLException("Attempting to overwrite pin in pair");
             }
         }
     }

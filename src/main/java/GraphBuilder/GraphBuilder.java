@@ -8,6 +8,7 @@ import MinecraftGraph.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
+import minecrafthdl.MHDLException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,21 +20,21 @@ import java.util.HashMap;
 //main class
 //json file->javaObject->Vertex->graph
 public class GraphBuilder {
-	private static ArrayList<String> ports_names=new ArrayList<>();
-	private static ArrayList<String> cells_names=new ArrayList<>();
-	private static ArrayList<Port> ports=new ArrayList<>();
-	private static ArrayList<Cell> cells=new ArrayList<>();
+	private static ArrayList<String> ports_names=new ArrayList<String>();
+	private static ArrayList<String> cells_names=new ArrayList<String>();
+	private static ArrayList<Port> ports=new ArrayList<Port>();
+	private static ArrayList<Cell> cells=new ArrayList<Cell>();
 	
-	private static ArrayList<In_output> inputs=new ArrayList<>();
-	private static ArrayList<In_output> outputs=new ArrayList<>();
-	private static ArrayList<Function> gates=new ArrayList<>();
+	private static ArrayList<In_output> inputs=new ArrayList<In_output>();
+	private static ArrayList<In_output> outputs=new ArrayList<In_output>();
+	private static ArrayList<Function> gates=new ArrayList<Function>();
 
 	static int test_i = 1;
 
 	static int high_low_nets = Integer.MAX_VALUE;
 	static int cell_ids = 0;
-	static HashMap<Integer, Vertex> from_net = new HashMap<>();
-	static HashMap<Integer, ArrayList<Vertex>> to_net = new HashMap<>();
+	static HashMap<Integer, Vertex> from_net = new HashMap<Integer, Vertex>();
+	static HashMap<Integer, ArrayList<Vertex>> to_net = new HashMap<Integer, ArrayList<Vertex>>();
 
 	public static int putInToNet(int i, Vertex v, Graph g){
 		ArrayList<Vertex> l = to_net.get(i);
@@ -42,7 +43,7 @@ public class GraphBuilder {
 			high_low_nets--;
 			Function f = new Function(cell_ids++, FunctionType.LOW, 0);
 			from_net.put(high_low_nets, f);
-			to_net.put(high_low_nets, new ArrayList<>());
+			to_net.put(high_low_nets, new ArrayList<Vertex>());
 			to_net.get(high_low_nets).add(v);
 			g.addVertex(f);
 			return high_low_nets;
@@ -50,12 +51,12 @@ public class GraphBuilder {
 			high_low_nets--;
 			Function f = new Function(cell_ids++, FunctionType.HIGH, 0);
 			from_net.put(high_low_nets, f);
-			to_net.put(high_low_nets, new ArrayList<>());
+			to_net.put(high_low_nets, new ArrayList<Vertex>());
 			to_net.get(high_low_nets).add(v);
 			g.addVertex(f);
 			return high_low_nets;
 		} else {
-			if (l == null) to_net.put(i, new ArrayList<>());
+			if (l == null) to_net.put(i, new ArrayList<Vertex>());
 			to_net.get(i).add(v);
 			return i;
 		}
@@ -65,7 +66,7 @@ public class GraphBuilder {
 	public static int putInFromNet(int i, Vertex v){
 		Vertex vr = from_net.get(i);
 
-		if (vr != null) throw new RuntimeException("TWO OUTPUTS ON SAME NET");
+		if (vr != null) throw new MHDLException("TWO OUTPUTS ON SAME NET");
 		from_net.put(i, v);
 		return i;
 	}
@@ -94,8 +95,8 @@ public class GraphBuilder {
 
 		Module m = jf.modules.values().iterator().next();
 
-		from_net = new HashMap<>();
-		to_net = new HashMap<>();
+		from_net = new HashMap<Integer, Vertex>();
+		to_net = new HashMap<Integer, ArrayList<Vertex>>();
 
 		for (String p_name : m.ports.keySet()){
 			JPort p = m.ports.get(p_name);
@@ -172,7 +173,7 @@ public class GraphBuilder {
 			for (Vertex v : to_net.get(i)){
 				Vertex from = from_net.get(i);
 				if (from == null){
-					throw new RuntimeException("NET HAS NO FROM VERTEX");
+					throw new MHDLException("NET HAS NO FROM VERTEX");
 				}
 
 				if (v.type == VertexType.FUNCTION){
@@ -200,14 +201,14 @@ public class GraphBuilder {
 
 	public static Graph buildxGraph(String path){
 
-		ArrayList<String> ports_names=new ArrayList<>();
-		ArrayList<String> cells_names=new ArrayList<>();
-		ArrayList<Port> ports=new ArrayList<>();
-		ArrayList<Cell> cells=new ArrayList<>();
+		ArrayList<String> ports_names=new ArrayList<String>();
+		ArrayList<String> cells_names=new ArrayList<String>();
+		ArrayList<Port> ports=new ArrayList<Port>();
+		ArrayList<Cell> cells=new ArrayList<Cell>();
 
-		ArrayList<In_output> inputs=new ArrayList<>();
-		ArrayList<In_output> outputs=new ArrayList<>();
-		ArrayList<Function> gates=new ArrayList<>();
+		ArrayList<In_output> inputs=new ArrayList<In_output>();
+		ArrayList<In_output> outputs=new ArrayList<In_output>();
+		ArrayList<Function> gates=new ArrayList<Function>();
 
 		test_i = 1;
 		System.out.println(test_i++); //1
@@ -257,7 +258,7 @@ public class GraphBuilder {
 
 			JCell c = m.cells.get(s);
 
-			ArrayList<Connection> conn_list = new ArrayList<>();
+			ArrayList<Connection> conn_list = new ArrayList<Connection>();
 
 			for(JPort p : c.ports.values()){
 
@@ -306,7 +307,7 @@ public class GraphBuilder {
 				Connection c_sel = c.getConn("S");
 
 				if (c_sel == null) {
-					throw new RuntimeException("MUX MUST HAVE S INPUT");
+					throw new MHDLException("MUX MUST HAVE S INPUT");
 				}
 
 				v = new MuxVertex(c.id, type, c.inputs.size());
@@ -624,7 +625,7 @@ public class GraphBuilder {
 		//if all outputs are of the same type
 		//remove lower level and reconnect its inputs with the higher level
 		//got back
-		ArrayList<Vertex> verToRemove=new ArrayList<>();
+		ArrayList<Vertex> verToRemove=new ArrayList<Vertex>();
 		for(Vertex v: graph.getVertices()){
 			System.out.println("vertex for");
 
@@ -751,11 +752,14 @@ public class GraphBuilder {
 		}else if(type.contains("or")||type.contains("OR")){
 			return FunctionType.OR;
 			
-		}else if(type.contains("dff_p")||type.contains("DFF_P")){
-			return FunctionType.D_FLIPFLOP;
-			
+		}else if(type.contains("dlatch_p")||type.contains("DLATCH_P")) {
+			return FunctionType.D_LATCH;
+
+		}else if(type.contains("not")||type.contains("NOT")){
+				return FunctionType.INV;
+
 		}else{
-			return FunctionType.INV;
+			throw new MHDLException("Unknown Cell:" + type);
 		}
 		
 		
@@ -768,7 +772,7 @@ public class GraphBuilder {
 	class Port{
 		String name;
 		String direction;
-		ArrayList<Integer> bits=new ArrayList<>();
+		ArrayList<Integer> bits=new ArrayList<Integer>();
 
 		public Port(String n, String d, ArrayList<Integer> b){
 			name=n;
@@ -781,10 +785,10 @@ public class GraphBuilder {
 	class Cell{
 		int id;
 		String type;
-		ArrayList<Connection> connections=new ArrayList<>();
+		ArrayList<Connection> connections=new ArrayList<Connection>();
 
 		ArrayList<Integer> inputs=new ArrayList<Integer>();
-		ArrayList<Integer> outputs=new ArrayList<>();
+		ArrayList<Integer> outputs=new ArrayList<Integer>();
 
 		public Cell(int i, String t, ArrayList<Connection> cns){
 			id=i;

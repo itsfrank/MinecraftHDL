@@ -1,6 +1,7 @@
 package minecrafthdl.synthesis.routing.pins;
 
 import MinecraftGraph.*;
+import minecrafthdl.MHDLException;
 import minecrafthdl.synthesis.Gate;
 
 /**
@@ -19,7 +20,7 @@ public class MuxPins extends GatePins {
         if (v.type == VertexType.FUNCTION && ((Function)v).func_type == FunctionType.MUX){
             this.mux_v = (MuxVertex)v;
         } else {
-            throw new RuntimeException("CANT MAKE MUX PINS WITH NON_MUX VERTEX");
+            throw new MHDLException("CANT MAKE MUX PINS WITH NON_MUX VERTEX");
         }
     }
 

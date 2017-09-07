@@ -8,7 +8,7 @@ public class Graph {
 	private ArrayList<Vertex> vertices;
 	
 	public Graph(){
-		vertices=new ArrayList<>();
+		vertices=new ArrayList<Vertex>();
 	}
 	
 	

@@ -1,6 +1,7 @@
 package minecrafthdl.synthesis;
 
 import MinecraftGraph.*;
+import minecrafthdl.MHDLException;
 import minecrafthdl.synthesis.routing.Channel;
 import minecrafthdl.synthesis.routing.Net;
 import minecrafthdl.synthesis.routing.Router;
@@ -17,18 +18,18 @@ import java.util.HashMap;
  */
 public class IntermediateCircuit {
 
-    public ArrayList<ArrayList<Vertex>> vertex_layers = new ArrayList<>();
-    public ArrayList<ArrayList<Gate>> gate_layers = new ArrayList<>();
-    public ArrayList<Channel> channels = new ArrayList<>();
+    public ArrayList<ArrayList<Vertex>> vertex_layers = new ArrayList<ArrayList<Vertex>>();
+    public ArrayList<ArrayList<Gate>> gate_layers = new ArrayList<ArrayList<Gate>>();
+    public ArrayList<Channel> channels = new ArrayList<Channel>();
 
 
     public void loadGraph(Graph graph) {
         System.out.println("Graph built");
 
-        ArrayList<Vertex> finished = new ArrayList<>();
-        ArrayList<Vertex> in_process = new ArrayList<>();
-        ArrayList<Vertex> process_done = new ArrayList<>();
-        ArrayList<Vertex> to_process = new ArrayList<>();
+        ArrayList<Vertex> finished = new ArrayList<Vertex>();
+        ArrayList<Vertex> in_process = new ArrayList<Vertex>();
+        ArrayList<Vertex> process_done = new ArrayList<Vertex>();
+        ArrayList<Vertex> to_process = new ArrayList<Vertex>();
 
         for (Vertex v : graph.getVertices()) {
             if (v.getType() == VertexType.INPUT) {
@@ -44,7 +45,7 @@ public class IntermediateCircuit {
 
         while (in_process.size() > 0){
             int size = in_process.size();
-            vertex_layers.add(new ArrayList<>());
+            vertex_layers.add(new ArrayList<Vertex>());
             for (Vertex v : in_process){
                 boolean valid = true;
                 for (Vertex p : v.getBefore()){
@@ -76,7 +77,7 @@ public class IntermediateCircuit {
 
 //            if (size == in_process.size()){
 //                System.out.println("");
-//                throw new RuntimeException("INFINITE LOOP");
+//                throw new MHDLException("INFINITE LOOP");
 //            }
         }
 
@@ -85,8 +86,8 @@ public class IntermediateCircuit {
             ArrayList<Vertex> next_layer = vertex_layers.get(i+1);
 
             for (Vertex v : layer){
-                ArrayList<Vertex> addToNext = new ArrayList<>();
-                ArrayList<Vertex> removeFromNext = new ArrayList<>();
+                ArrayList<Vertex> addToNext = new ArrayList<Vertex>();
+                ArrayList<Vertex> removeFromNext = new ArrayList<Vertex>();
 
                 for (Vertex next : v.getNext()){
                     if (!next_layer.contains(next)){
@@ -137,10 +138,10 @@ public class IntermediateCircuit {
     }
 
     public void buildGates() {
-        if (this.vertex_layers.size() == 0) throw new RuntimeException("Must load graph before building gates");
+        if (this.vertex_layers.size() == 0) throw new MHDLException("Must load graph before building gates");
 
         for (ArrayList<Vertex> v_layer : this.vertex_layers) {
-            ArrayList<Gate> this_layer = new ArrayList<>();
+            ArrayList<Gate> this_layer = new ArrayList<Gate>();
             for (Vertex v : v_layer) {
                 if (v.getType() == VertexType.FUNCTION) {
                     this_layer.add(genGate(((Function) v).getFunc_Type(), ((Function) v).get_num_inputs()));
@@ -175,7 +176,7 @@ public class IntermediateCircuit {
     }
 
     public Circuit genCircuit(){
-        if (this.gate_layers.size() == 0) throw new RuntimeException("Must build gates before generating final circuit");
+        if (this.gate_layers.size() == 0) throw new MHDLException("Must build gates before generating final circuit");
 
         int size_x = 0;
         int size_y = 0;
@@ -256,8 +257,10 @@ public class IntermediateCircuit {
             return Circuit.TEST? TestLogicGates.IO() : LogicGates.HIGH();
         }else if ( func_type == FunctionType.LOW){
             return Circuit.TEST? TestLogicGates.IO() : LogicGates.LOW();
+        }else if ( func_type == FunctionType.D_LATCH){
+            return Circuit.TEST? TestLogicGates.IO() : LogicGates.D_LATCH();
         }
-        else throw new RuntimeException("NO SUCH GATE AVAILABLE");
+        else throw new MHDLException("NO SUCH GATE AVAILABLE");
     }
 
 

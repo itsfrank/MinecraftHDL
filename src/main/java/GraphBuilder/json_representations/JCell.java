@@ -13,7 +13,7 @@ public class JCell extends Node{
     public HashMap<String, String> port_directions;
     public HashMap<String, ArrayList<Integer>> connections;
 
-    public HashMap<String, JPort> ports = new HashMap<>();
+    public HashMap<String, JPort> ports = new HashMap<String, JPort>();
 
     @Override
     public ArrayList<Integer> getNets() {

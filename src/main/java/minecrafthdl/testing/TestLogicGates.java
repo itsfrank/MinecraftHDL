@@ -1,6 +1,7 @@
 package minecrafthdl.testing;
 
 import minecrafthdl.Demo;
+import minecrafthdl.MHDLException;
 import minecrafthdl.synthesis.Gate;
 import minecrafthdl.synthesis.IntermediateCircuit;
 import minecrafthdl.synthesis.LogicGates;
@@ -46,7 +47,7 @@ public class TestLogicGates extends LogicGates {
     }
 
     public static Gate AND(int inputs) {
-        if (inputs == 0) throw new RuntimeException("Gate cannot have 0 inputs");
+        if (inputs == 0) throw new MHDLException("Gate cannot have 0 inputs");
         int width;
         if (inputs == 1) width = 1;
 
@@ -80,7 +81,7 @@ public class TestLogicGates extends LogicGates {
 
 
     public static Gate OR(int inputs) {
-        if (inputs == 0) throw new RuntimeException("Gate cannot have 0 inputs");
+        if (inputs == 0) throw new MHDLException("Gate cannot have 0 inputs");
         int width;
         if (inputs == 1) width = 1;
         else width = (inputs * 2) - 1;

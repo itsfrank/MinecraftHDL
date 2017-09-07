@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class Router {
 
     public static Channel route(ArrayList<Vertex> top_vertices, ArrayList<Gate> top_gates, ArrayList<Vertex> bottom_vertices, ArrayList<Gate> bottom_gates, int gate_spacing){
-        ArrayList<Pin> top_pins, bottom_pins = new ArrayList<>();
+        ArrayList<Pin> top_pins, bottom_pins = new ArrayList<Pin>();
 
 
 
@@ -34,7 +34,7 @@ public class Router {
         PinInitRtn rtn = new PinInitRtn();
 
         //Pin map init
-        HashMap<Vertex, GatePins> pin_map = new HashMap<>();
+        HashMap<Vertex, GatePins> pin_map = new HashMap<Vertex, GatePins>();
 
         if(top_gates.size() != top_vertices.size()) throw  new RuntimeException("Top vertices and gates must be same size");
         if(bottom_gates.size() != bottom_vertices.size()) throw  new RuntimeException("Bottom vertices and gates must be same size");
@@ -89,7 +89,7 @@ public class Router {
     }
 
     public static HashMap<Integer, Net> initializeNets(ArrayList<Vertex> top_vertices, ArrayList<Vertex> bottom_vertices, HashMap<Vertex, GatePins> pin_map) {
-        HashMap<Integer, Net> nets = new HashMap<>();
+        HashMap<Integer, Net> nets = new HashMap<Integer, Net>();
 
         for (Vertex v : top_vertices){
             GatePins gate = pin_map.get(v);

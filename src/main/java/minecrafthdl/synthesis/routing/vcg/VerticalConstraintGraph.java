@@ -1,6 +1,7 @@
 package minecrafthdl.synthesis.routing.vcg;
 
-import javafx.util.Pair;
+import minecrafthdl.MHDLException;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import minecrafthdl.synthesis.routing.Net;
 import minecrafthdl.synthesis.routing.pins.PinPair;
 import minecrafthdl.synthesis.routing.pins.PinsArray;
@@ -15,8 +16,7 @@ import java.util.HashMap;
 public class VerticalConstraintGraph {
 
     int num_nets_routed = 0;
-
-    ArrayList<Pair<Integer, Integer>> edges_done = new ArrayList<>();
+    ArrayList<ImmutablePair<Integer, Integer>> edges_done = new ArrayList<ImmutablePair<Integer, Integer>>();
 
     public int[] getEdgeIDList(int id) {
         Node n = nodes.get(id);
@@ -32,7 +32,7 @@ public class VerticalConstraintGraph {
 
     private static class Node {
         public boolean routed = false;
-        public ArrayList<Edge> edges = new ArrayList<>();
+        public ArrayList<Edge> edges = new ArrayList<Edge>();
 
         int net_id;
 
@@ -49,10 +49,10 @@ public class VerticalConstraintGraph {
         }
     }
 
-    private HashMap<Integer, Node> nodes = new HashMap<>();
+    private HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
 
     public VerticalConstraintGraph(PinsArray pin_pairs, HashMap<Integer, Net> nets) {
-        ArrayList<PinPair> original_pairs = new ArrayList<>(pin_pairs.getPairs());
+        ArrayList<PinPair> original_pairs = new ArrayList<PinPair>(pin_pairs.getPairs());
         for(PinPair pair : original_pairs){
             if (!pair.top.empty()){
                 if(!this.nodes.containsKey(pair.top.netID())) this.nodes.put(pair.top.netID(), new Node(pair.top.netID()));
@@ -68,7 +68,7 @@ public class VerticalConstraintGraph {
 
                 if (!cycle(this.nodes.get(pair.top.netID()), pair.bot.netID())){
                     this.nodes.get(pair.bot.netID()).edges.add(new Edge(this.nodes.get(pair.top.netID())));
-                    this.edges_done.add(new Pair<>(pair.top.netID(), pair.bot.netID()));
+                    this.edges_done.add(new ImmutablePair<Integer, Integer>(pair.top.netID(), pair.bot.netID()));
                 } else {
                     Net out_net = new Net();
                     Net out_partner = nets.get(pair.top.netID());
@@ -84,7 +84,7 @@ public class VerticalConstraintGraph {
                     Node out_node = new Node(out_net.getId());
                     this.nodes.put(out_net.getId(), out_node);
                     this.nodes.get(pair.bot.netID()).edges.add(new Edge(out_node));
-                    this.edges_done.add(new Pair<>(pair.top.netID(), pair.bot.netID()));
+                    this.edges_done.add(new ImmutablePair<Integer, Integer>(pair.top.netID(), pair.bot.netID()));
                 }
 
             }
@@ -93,7 +93,7 @@ public class VerticalConstraintGraph {
     }
 
     public boolean edgeDone(int top, int bot){
-        for (Pair<Integer, Integer> pair : this.edges_done){
+        for (ImmutablePair<Integer, Integer> pair : this.edges_done){
             if (pair.getKey() == top && pair.getValue() == bot) return true;
         }
 
@@ -127,7 +127,7 @@ public class VerticalConstraintGraph {
     }
 
     public void routed(int netID){
-        if (this.nodes.get(netID).routed) throw new RuntimeException("Routed same net twice");
+        if (this.nodes.get(netID).routed) throw new MHDLException("Routed same net twice");
 
         this.nodes.get(netID).routed = true;
         this.num_nets_routed++;

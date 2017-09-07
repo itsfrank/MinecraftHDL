@@ -1,5 +1,6 @@
 package minecrafthdl.synthesis.routing;
 
+import minecrafthdl.MHDLException;
 import minecrafthdl.synthesis.routing.pins.Pin;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class Net {
     int id;
     int track = -1;
 
-    private ArrayList<Pin> pins = new ArrayList<>();
+    private ArrayList<Pin> pins = new ArrayList<Pin>();
     Pin top_pin;
 
     int x_min = Integer.MAX_VALUE, x_max = -1;
@@ -53,7 +54,7 @@ public class Net {
     }
 
     public void setTrack(int track){
-        if (this.hasTrack()) throw new RuntimeException("Net already has a track");
+        if (this.hasTrack()) throw new MHDLException("Net already has a track");
         this.track = track;
     }
 

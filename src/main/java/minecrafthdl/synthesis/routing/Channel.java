@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Channel {
     public PinsArray pinsArray;
-    public ArrayList<ArrayList<Net>> tracks = new ArrayList<>();
+    public ArrayList<ArrayList<Net>> tracks = new ArrayList<ArrayList<Net>>();
 
     public void findAvailableTrack(Net net, VerticalConstraintGraph vcg){
         if (net == null){
@@ -49,7 +49,7 @@ public class Channel {
                 return;
             }
         }
-        ArrayList<Net> new_track = new ArrayList<>();
+        ArrayList<Net> new_track = new ArrayList<Net>();
         new_track.add(net);
         this.tracks.add(new_track);
         net.setTrack(this.tracks.size() - 1);
@@ -70,7 +70,7 @@ public class Channel {
 
         Circuit circuit = new Circuit(width, height, length);
 
-        ArrayList<Net> nets_done = new ArrayList<>();
+        ArrayList<Net> nets_done = new ArrayList<Net>();
 
         for(ArrayList<Net> track : this.tracks){
             for (Net n : track){

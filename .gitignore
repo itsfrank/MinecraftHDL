@@ -1,27 +1,14 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
+*
+!src/
+!src/**
 
-# idea
-out
-*.ipr
-*.iws
-*.iml
-.idea
+!verilog/
+!verilog/**
 
-# gradle
-build
-.gradle
+!markdown/
+!markdown/**
 
-# other
-eclipse
-run
-build.gradle
-forge-1.10.2-12.18.1.2011-changelog.txt
-forge-1.10.2-12.18.1.2011-mdk.zip
-gradlew
-gradlew.bat
+!screenshots/
+!screenshots/**
+
+!README.md

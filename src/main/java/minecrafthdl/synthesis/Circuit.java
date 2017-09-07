@@ -1,12 +1,17 @@
 package minecrafthdl.synthesis;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Francis on 10/28/2016.
@@ -63,12 +68,22 @@ public class Circuit {
             }
         }
 
+        HashMap<Vec3i ,IBlockState> torches = new HashMap<Vec3i, IBlockState>();
+
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++) {
                 for (int k = 0; k < length; k++) {
-                    worldIn.setBlockState(new BlockPos(start_x + i, start_y + j, start_z + k), this.getState(i, j, k));
+                    if (this.getState(i, j, k).getBlock().getDefaultState() == Blocks.REDSTONE_TORCH.getDefaultState()) {
+                        torches.put(new Vec3i(i, j, k), this.getState(i, j, k));
+                    } else {
+                        worldIn.setBlockState(new BlockPos(start_x + i, start_y + j, start_z + k), this.getState(i, j, k));
+                    }
                 }
             }
+        }
+
+        for (Map.Entry<Vec3i, IBlockState> set : torches.entrySet()){
+            worldIn.setBlockState(new BlockPos(start_x + set.getKey().getX(), start_y + set.getKey().getY(), start_z + set.getKey().getZ()), set.getValue());
         }
     }
 

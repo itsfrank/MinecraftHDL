@@ -1,6 +1,7 @@
 package minecrafthdl.gui;
 
 import minecrafthdl.block.blocks.Synthesizer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -23,7 +24,7 @@ public class SynthesiserGUI extends GuiScreen {
 
     String file_directory = "./verilog_designs";
 
-    ArrayList<String> file_names = new ArrayList<>();
+    ArrayList<String> file_names = new ArrayList<String>();
     int selected_file = -1;
 
 
@@ -65,8 +66,8 @@ public class SynthesiserGUI extends GuiScreen {
         this.filebox_bottom = window_top + 130;
 
         this.buttonList.add(this.synthesize_button = new GuiButton(this.synth_b_id, this.width / 2 - 50, this.height / 2 + 52, 100, 20, "Generate Design"));
-        this.buttonList.add(this.up_button = new GuiButton(this.up_b_id , this.filebox_right + 1, this.filebox_top - 1, 20, 20, "▲"));
-        this.buttonList.add(this.down_button = new GuiButton(this.down_b_id, this.filebox_right + 1, this.filebox_bottom - 19, 20, 20, "▼"));
+        this.buttonList.add(this.up_button = new GuiButton(this.up_b_id , this.filebox_right + 1, this.filebox_top - 1, 20, 20, "^"));
+        this.buttonList.add(this.down_button = new GuiButton(this.down_b_id, this.filebox_right + 1, this.filebox_bottom - 19, 20, 20, "/"));
 
 
         System.out.println("Win L: " + this.window_left + "\tWin T: " + this.window_top);
@@ -76,18 +77,32 @@ public class SynthesiserGUI extends GuiScreen {
     }
 
     private ArrayList<String> readFileNames(){
-        ArrayList<String> files = new ArrayList<>();
+        ArrayList<String> files = new ArrayList<String>();
         File folder = new File(file_directory);
 
         if (folder == null) {
             folder.mkdir();
         }
 
-        for (File f : folder.listFiles()){
-            if (f.getName().toLowerCase().endsWith(".json")) {
-                files.add(f.getName());
+        System.out.println("PWD: " + System.getProperty("user.dir"));
+
+
+        if (!folder.exists()) {
+            folder.mkdir();
+            Minecraft.getMinecraft().thePlayer.sendChatMessage("Created folder 'verilog_designs'");
+            Minecraft.getMinecraft().thePlayer.sendChatMessage("Copy your synthesized JSON files to this directory:");
+            Minecraft.getMinecraft().thePlayer.sendChatMessage(System.getProperty("user.dir") + "\\verilog_designs");
+
+        } else {
+            for (File f : folder.listFiles()){
+                if (f.getName().toLowerCase().endsWith(".json")) {
+                    files.add(f.getName());
+                }
             }
         }
+
+
+
 
         return files;
     }

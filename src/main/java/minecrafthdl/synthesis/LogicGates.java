@@ -1,6 +1,7 @@
 package minecrafthdl.synthesis;
 
 import minecrafthdl.Demo;
+import minecrafthdl.MHDLException;
 import minecrafthdl.Utils;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -40,7 +41,7 @@ public class LogicGates {
     }
 
     public static Gate AND(int inputs) {
-        if (inputs == 0) throw new RuntimeException("Gate cannot have 0 inputs");
+        if (inputs == 0) throw new MHDLException("Gate cannot have 0 inputs");
         int width;
         if (inputs == 1) width = 1;
 
@@ -73,7 +74,7 @@ public class LogicGates {
 
 
     public static Gate OR(int inputs) {
-        if (inputs == 0) throw new RuntimeException("Gate cannot have 0 inputs");
+        if (inputs == 0) throw new MHDLException("Gate cannot have 0 inputs");
         int width;
         if (inputs == 1) width = 1;
         else width = (inputs * 2) - 1;
@@ -170,6 +171,23 @@ public class LogicGates {
     public static Gate HIGH(){
         Gate gate = new Gate(1, 1, 1, 1, 1, 0, 0, new int[]{0});
         gate.setBlock(0, 0, 0, Blocks.REDSTONE_TORCH.getDefaultState());
+        return gate;
+    }
+
+    public static Gate D_LATCH() {
+        Gate gate = new Gate(3, 1, 4, 2, 1, 1, 0, new int[]{0});
+
+        gate.setBlock(0, 0, 0, Blocks.WOOL.getDefaultState());
+        gate.setBlock(0, 0, 1, Blocks.REDSTONE_WIRE.getDefaultState());
+        gate.setBlock(0, 0, 2, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+        gate.setBlock(0, 0, 3, Blocks.WOOL.getDefaultState());
+
+        gate.setBlock(1, 0, 2, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.EAST));
+
+        gate.setBlock(2, 0, 0, Blocks.WOOL.getDefaultState());
+        gate.setBlock(2, 0, 1, Blocks.REDSTONE_WIRE.getDefaultState());
+        gate.setBlock(2, 0, 2, Blocks.REDSTONE_WIRE.getDefaultState());
+
         return gate;
     }
 }

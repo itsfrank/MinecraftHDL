@@ -1,5 +1,7 @@
 package minecrafthdl.synthesis.routing.pins;
 
+import minecrafthdl.MHDLException;
+
 /**
  * Created by Francis on 2/22/2017.
  */
@@ -15,7 +17,7 @@ public class Pin {
 
     public void setNet(int net_id, boolean out_net){
         if (!out_net && this.net != -1) {
-            throw new RuntimeException("Should not assign pin to two different nets");
+            throw new MHDLException("Should not assign pin to two different nets");
         }
 
         this.net = net_id;

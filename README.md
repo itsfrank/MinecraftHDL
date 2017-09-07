@@ -7,7 +7,7 @@ Download it [here](https://www.jetbrains.com/idea/specials/idea/idea.html?&gclid
 
 ## 2. Get MinecraftForge
 Download [here](https://files.minecraftforge.net/), get the MDK version (1.10.2 - 12.18.1.2011) for minecraft 1.10
-This is the version under "Download recomended" as of the writing of this file.  
+This is the version under "Download recomended" as of the writing of this file.
 Extract it in the folder where you want the project to be located
 
 ## 3. Follow the video

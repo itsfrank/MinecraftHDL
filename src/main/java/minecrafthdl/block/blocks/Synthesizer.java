@@ -1,15 +1,18 @@
 package minecrafthdl.block.blocks;
 
 import GraphBuilder.GraphBuilder;
+import minecrafthdl.MHDLException;
 import minecrafthdl.MinecraftHDL;
 import minecrafthdl.block.BasicBlock;
 import minecrafthdl.gui.MinecraftHDLGuiHandler;
+import minecrafthdl.synthesis.Circuit;
 import minecrafthdl.synthesis.IntermediateCircuit;
 import minecrafthdl.synthesis.LogicGates;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -55,42 +58,37 @@ public class Synthesizer extends BasicBlock {
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
 
                     if (Synthesizer.file_to_gen != null){
-                        System.out.println(1);
+                        synth_gen(worldIn, pos);
 
-                        IntermediateCircuit ic = new IntermediateCircuit();
-                        System.out.println(2);
-                        ic.loadGraph(GraphBuilder.buildGraph(Synthesizer.file_to_gen));
-                        System.out.println(3);
-                        ic.buildGates();
-                        System.out.println(4);
-                        ic.routeChannels();
-                        System.out.println(5);
-                        ic.genCircuit().placeInWorld(worldIn, pos, EnumFacing.NORTH);
                     }
-
                 }else if (worldIn.getRedstonePower(pos.east(), EnumFacing.EAST) > 0) {
                     //Negative X is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
+
+                    if (Synthesizer.file_to_gen != null){
+                        synth_gen(worldIn, pos);
+
+                    }
+
                 }else if (worldIn.getRedstonePower(pos.south(), EnumFacing.SOUTH) > 0) {
                     //Positive Z is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
-                    LogicGates.MUX().placeInWorld(worldIn, pos, EnumFacing.SOUTH);
+
+                    if (Synthesizer.file_to_gen != null){
+                        synth_gen(worldIn, pos);
+
+                    }
                 }else if (worldIn.getRedstonePower(pos.west(), EnumFacing.WEST) > 0) {
                     //Positive X is receiving power
+                    worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
+
+                    if (Synthesizer.file_to_gen != null){
+                        synth_gen(worldIn, pos);
+                    }
                 }else if (worldIn.getRedstonePower(pos.up(), EnumFacing.UP) > 0) {
                     //Positive Y is receiving power
-
-//                    System.out.println(System.getProperty("user.dir"));
-                    String[] command = {"cmd.exe","/C","test.bat"};
-                    ProcessBuilder pb = new ProcessBuilder(command);
-                    pb.redirectError(ProcessBuilder.Redirect.INHERIT);
-                    pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-                    try {
-                        pb.start();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
+                    worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
+                    LogicGates.D_LATCH().placeInWorld(worldIn, pos, EnumFacing.NORTH);
                 }else if (worldIn.getRedstonePower(pos.down(), EnumFacing.DOWN) > 0) {
                     //Negative Y is receiving power
                 } else {
@@ -103,6 +101,20 @@ public class Synthesizer extends BasicBlock {
             }
 
             worldIn.notifyNeighborsOfStateChange(pos, this);
+        }
+    }
+
+    private void synth_gen(World worldIn, BlockPos pos){
+        try {
+
+            IntermediateCircuit ic = new IntermediateCircuit();
+            ic.loadGraph(GraphBuilder.buildGraph(Synthesizer.file_to_gen));
+            ic.buildGates();
+            ic.routeChannels();
+            ic.genCircuit().placeInWorld(worldIn, pos, EnumFacing.NORTH);
+        } catch (Exception e){
+            Minecraft.getMinecraft().thePlayer.sendChatMessage("An error occurred while generating the circuit, check the logs! Sorry!");
+            e.printStackTrace();
         }
     }
 
