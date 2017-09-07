@@ -41,6 +41,7 @@ With the 6 inputs on the right and the single output on the left
 - [How MinecraftHDL Works - Methods, Algorithms, Tools]() 
 - [Known Limitations & Future Work]() 
 - [Acknowledgments & Licensing]() 
+- [Developper Info - If you want to fork or contribute](markdown/DEV_SETUP.md)
 --- 
 # About 
 MinecraftHDL was the final undergraduate design project made by three students in the Electrical, Computer & Software Engineering department at McGill University.  
