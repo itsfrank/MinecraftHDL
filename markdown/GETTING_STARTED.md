@@ -32,13 +32,13 @@ This mod has the potential to destroy massive chunks of your world! It is intend
     On that page, in the "game directory" box is where forge is installed, there is a green arrow to open the directory in the explorer/finder  
     Copy the MinecraftHDL JAR in the mods directory in there  
 
-4. *** **Mac OSX Only** *** Install yosys (yosys is an open source verilog synthesis tool)
-Open a terminal window - Press CMD + Space and type `Terminal`
--- Install Homebrew (skip if already installed):
-   `$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
--- Install yosys
-`$ brew install yosys`
-To make sure it's installed properly, in your terminal run "$ yosys" you should see license announcement and now be in the yosys shell. type "exit" to quit.
+4. *** **Mac OSX Only** *** Install yosys (yosys is an open source verilog synthesis tool)  
+    Open a terminal window - Press CMD + Space and type `Terminal`  
+    -- Install Homebrew (skip if already installed):  
+    `$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`  
+    -- Install yosys  
+    `$ brew install yosys`  
+    To make sure it's installed properly, in your terminal run "$ yosys" you should see license announcement and now be in the yosys shell. type "exit" to quit.  
 
 
 You are now ready to use MinecraftHDL, launch a new creative world, and scroll to the bottom of the `misc` tab, there should be a new block called the Synthesizer.
