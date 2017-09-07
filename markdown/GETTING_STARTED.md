@@ -76,15 +76,61 @@ You are now ready to use MinecraftHDL, launch a new creative world, and scroll t
     
  *** If the above methods did not work, see the `Manual Yosys Synthesis` section at the bottom of this document 
 
-This should generate yourVerilogFile.v.json in the same directory
-*** If it doesn't work, rename your file to tmp.v copy it into the autoyosys directory. Don't CD into autoyosys and run $yosys -s ./autoyosys/auto.ysy
-        this will generate a file called tmp.json inside autoyosys which is equivalent to yourVerilogFile.v.json
 
-7. Launch Minecraft and create a new world in creative mode with the "superflat" world option and allow cheats: ON
+### Using the synthesized JSON files in Minecraft
 
-8. In your inventory, go to the "misc" panel and scroll to the bottom, select the last block (should be our synthesizer block), place it and right-click it
-It should give you a chat message that it created the "verilog_designs" folder, use "esc" to close the synthesizer's GUI
+First Launch Minecraft and create a new world in creative mode with the "superflat" world option and allow cheats: ON
+
+In your inventory, go to the "misc" panel and scroll to the bottom, select the last block (should be our synthesizer block), place it and right-click it  
+It should give you a chat message saying that it created the "verilog_designs" folder, use "esc" to close the synthesizer's GUI
+
+
 Alt-tab out of minecraft and copy, the JSON you generated with yosys to the "verilog_designs" folder (it's in the same parent directory as the "mods" folder from earlier)
-Back in minecraft, right click the synthesizer again, select your file and click generate.
-Then either use a button or a lever, and place it on the side of the synthesizer block by shift-right-clicking on the block with the button/lever
-Right-click the button or lever and your circuit should appear.
+
+
+Default Paths:  
+**Windows**: `C:\Users\YOUR_USERNAME\AppData\Roaming\.minecraft\verilog_designs`  
+**Mac OSX**: `~/Library/Application Support/Minecraft/verilog_designs`
+
+
+Back in minecraft, right click the synthesizer again, select your file and click generate.  
+Then either use a button or a lever, and place it on the side of the synthesizer block by shift-right-clicking on the block with the button/lever  
+Right-click the button or lever and your circuit should appear instantly.
+
+*** If the button stays stuck in the "pressed" position, or if nothing at all happens, most likely an error occured when loading or generating the circuit. Check the minecraft console for more details. Your verilog might be 100% valid, however there are some limitations of MinecraftHDL which are outlined [here]()
+
+# More Advanced Setup
+
+Its kind of a pain to constantly copy the generated JSON file. you can make it easier by editing `synth.bat` or `synth.sh` (depending on your operating system) to copy the generated JSON to the `verilog_designs` folder.
+
+
+**Windows**  
+Change this line: `copy autoyosys\tmp.json %1.v.json`  
+To this: `copy autoyosys\tmp.json path\to\verilog_designs\%1.v.json`
+
+**Mac OSX**  
+Change this line: `cp ./autoyosys/tmp.json ./$1.json`  
+To this: `cp ./autoyosys/tmp.json /path/to/verilog_designs/%1.v.json`
+
+
+# Manual Yosys Synthesis
+
+If you want to generate the JSON without my scripts you can do the following:
+
+
+Make sure yosys is installed, on mac follow the homebrew instructions above, on windows download it [here](http://www.clifford.at/yosys/download.html)
+
+
+Then run yosys:  
+**Windows**: double-click on yosys.exe
+**Mac OSX**: Just run `$ yosys` in your terminal
+
+
+Once in the yosys shell, I use these command to generate the JSON netlist:
+```
+> read_verilog path/to/verilog/file.v
+> hierarchy -check
+> proc; opt; fsm; opt; memory; opt
+> techmap; opt
+> json -o path/where/JSON/will/be/generated.json
+```
