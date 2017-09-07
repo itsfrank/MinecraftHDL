@@ -19,17 +19,17 @@ This mod has the potential to destroy massive chunks of your world! It is intend
     **Mac OSX**: Get the `Installer` JAR  
     Run the installer and select the "Minecraft Client" option when prompted.  
 
-3. Download the MinecraftHDL release zip from here:
-https://github.com/itsFrank/MinecraftHDL/releases/tag/0.0.1
-Extract it somewhere (remember where!)
-Then copy the JAR in the "mods" folder where minecraft forge is installed.
-It should be in:
-**Windows**: `C:\Users\YOUR_USERNAME\AppData\Roaming\.minecraft`
-**Mac OSX**: `~/Library/Application Support/Minecraft`
-If it's not there, you can see where that folder is located by:
-launching the Minecraft launcher >  Clicking the menu hamburger button at the top right >   launch options > forge
-On that page, in the "game directory" box is where forge is installed, there is a green arrow to open the directory in the explorer/finder
-Copy the MinecraftHDL JAR in the mods directory in there
+3. Download the MinecraftHDL release zip from here:  
+    https://github.com/itsFrank/MinecraftHDL/releases/tag/0.0.1  
+    Extract it somewhere (remember where!)  
+    Then copy the JAR in the "mods" folder where minecraft forge is installed.  
+    It should be in:  
+    **Windows**: `C:\Users\YOUR_USERNAME\AppData\Roaming\.minecraft`  
+    **Mac OSX**: `~/Library/Application Support/Minecraft`  
+    If it's not there, you can see where that folder is located by:  
+    launching the Minecraft launcher >  Clicking the menu hamburger button at the top right >   launch options > forge  
+    On that page, in the "game directory" box is where forge is installed, there is a green arrow to open the directory in the explorer/finder  
+    Copy the MinecraftHDL JAR in the mods directory in there  
 
 4. *** **Mac OSX Only** *** Install yosys (yosys is an open source verilog synthesis tool)
 Open a terminal window - Press CMD + Space and type `Terminal`
