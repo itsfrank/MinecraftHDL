@@ -8,6 +8,7 @@ Minecraft HDL is a digital synthesis flow for minecraft redstone circuits. It is
 
 ### Example:
 
+
 This file `multiplexer4_1.v` is a 6 input - 1 output circuit that selects one of the first 4 inputs (a, b, c, d) as the output based on the value of the last 2 inputs (x, y)
 
 ```verilog
@@ -22,9 +23,16 @@ assign dout = (a & (~x) & (~y)) |
      (d & x & y);
 endmodule
 ```
+
 When synthesized through Minecraft HDL if produces this circuit:
+
+
 ![4to1mux][mux4_short]
+
+
 With the 6 input on the right and the output on the left
+
+
 ---
 # Quick Links
 - [Screenshots & Sample Circuits]()
