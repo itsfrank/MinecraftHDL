@@ -45,7 +45,7 @@ With the 6 inputs on the right and the single output on the left
 # About 
 MinecraftHDL was the final undergraduate design project made by three students in the Electrical, Computer & Software Engineering department at McGill University.  
  
-It is by no means bug-free or even complete; It produces objectively inferior circuits to 'hand-made' redstone designs, and is not intended to be used in modded survival. It can generate almost any verilog circuit, however only simple designs will actually be testable in-game since any moderately-complex design will end up being longer than the maximum number of block loaded in Minecraft. 
+It is by no means bug-free or even complete; It produces objectively inferior circuits to 'hand-made' redstone designs, and is not intended to be used in modded survival. It can generate almost any verilog circuit, however only simple designs will actually be testable in-game since any moderately-complex design will end up being longer than the maximum number of blocks loaded in Minecraft. 
  
 MinecraftHDL is an educational tool to illustrate on a macro-scopic scale how microelectronic digital circuits are designed and produced. It is a great way to introduce younger audiences to the world of digital design and can also be used to illustrate the difference between software and hardware design to undergraduate engineers taking their first RTL class. 
  
