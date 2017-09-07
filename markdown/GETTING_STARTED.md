@@ -122,7 +122,7 @@ Make sure yosys is installed, on mac follow the homebrew instructions above, on 
 
 
 Then run yosys:  
-**Windows**: double-click on yosys.exe
+**Windows**: double-click on yosys.exe  
 **Mac OSX**: Just run `$ yosys` in your terminal
 
 
