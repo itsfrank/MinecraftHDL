@@ -27,14 +27,16 @@ When synthesized through Minecraft HDL if produces this circuit:
 With the 6 input on the right and the output on the left
 ---
 # Quick Links
-[Screenshots & Sample Circuits]()
-[Getting Started - Installing and Using MinecraftHDL]()
-[Background Theory - Digital Design & Verilog]()
-[How MinecraftHDL Works - Methods, Algorithms, Tools]()
-[Acknowledgments & Licensing]()
+- [Screenshots & Sample Circuits]()
+- [Getting Started - Installing and Using MinecraftHDL]()
+- [Background Theory - Digital Design & Verilog]()
+- [How MinecraftHDL Works - Methods, Algorithms, Tools]()
+- [Acknowledgments & Licensing]()
 ---
 # About
 MinecraftHDL was the final undergraduate design project made by three students in the Electrical Computer & Software Engineering Department at McGill University. 
+
 It is by no means bug-free or even complete; It produces objectively inferior circuits to 'hand-made' redstone designs, and is not intended to me used in modded survival.
+
 MinecraftHDL is an educational tool to illustrate on a macro-scopic scale how microelectronic digital circuits are designed and produced. It is a great way to introduce younger audiences to the world of digital design and can also be used to illustrate the difference between software and hardware design to undergraduate engineers taking their first RTL class.
 
