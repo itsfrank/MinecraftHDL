@@ -26,6 +26,7 @@ This mod has the potential to destroy massive chunks of your world! It is intend
     It should be in:  
     **Windows**: `C:\Users\YOUR_USERNAME\AppData\Roaming\.minecraft`  
     **Mac OSX**: `~/Library/Application Support/Minecraft`  
+
     If it's not there, you can see where that folder is located by:  
     launching the Minecraft launcher >  Clicking the menu hamburger button at the top right >   launch options > forge  
     On that page, in the "game directory" box is where forge is installed, there is a green arrow to open the directory in the explorer/finder  
