@@ -36,11 +36,11 @@ With the 6 inputs on the right and the single output on the left
 --- 
 # Quick Links 
 - [Screenshots & Sample Circuits]() 
-- [Getting Started - Installing and Using MinecraftHDL]() 
-- [Background Theory - Digital Design & Verilog]() 
-- [How MinecraftHDL Works - Methods, Algorithms, Tools]() 
-- [Known Limitations & Future Work]() 
-- [Acknowledgments & Licensing]() 
+- [Getting Started - Installing and Using MinecraftHDL](markdown/GETTING_STARTED.md) 
+- [Background Theory - Digital Design & Verilog] 
+- [How MinecraftHDL Works - Methods, Algorithms, Tools] 
+- [Known Limitations & Future Work] 
+- [Acknowledgments & Licensing] 
 - [Developper Info - If you want to fork or contribute](markdown/DEV_SETUP.md)
 --- 
 # About 
