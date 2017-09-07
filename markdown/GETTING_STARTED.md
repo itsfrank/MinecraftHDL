@@ -101,7 +101,7 @@ Right-click the button or lever and your circuit should appear instantly.
 
 # More Advanced Setup
 
-Its kind of a pain to constantly copy the generated JSON file. you can make it easier by editing `synth.bat` or `synth.sh` (depending on your operating system) to copy the generated JSON to the `verilog_designs` folder.
+Its kind of a pain to constantly copy the generated JSON file. You can make it easier by editing `synth.bat` or `synth.sh` (depending on your operating system) to copy the generated JSON to the `verilog_designs` folder.
 
 
 **Windows**  
@@ -110,7 +110,7 @@ To this: `copy autoyosys\tmp.json path\to\verilog_designs\%1.v.json`
 
 **Mac OSX**  
 Change this line: `cp ./autoyosys/tmp.json ./$1.json`  
-To this: `cp ./autoyosys/tmp.json /path/to/verilog_designs/%1.v.json`
+To this: `cp ./autoyosys/tmp.json /path/to/verilog_designs/$1.v.json`
 
 
 # Manual Yosys Synthesis
