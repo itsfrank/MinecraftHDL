@@ -13,7 +13,7 @@ This mod has the potential to destroy massive chunks of your world! It is intend
 1. Get and install Minecraft, launch the launcher at least one (to initialize the Minecraft directory)
 
 2. Download the minecraft forge installer for minecraft 1.10.2 here: 
-3. 
+
 https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.10.2.html
 
 Under "Download Recommended"
