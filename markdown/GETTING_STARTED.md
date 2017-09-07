@@ -33,7 +33,7 @@ This mod has the potential to destroy massive chunks of your world! It is intend
     Copy the MinecraftHDL JAR in the mods directory in there  
 
 4. *** **Mac OSX Only** *** Install yosys (yosys is an open source verilog synthesis tool)  
-    Open a terminal window - Press CMD + Space and type `Terminal` 
+    Open a terminal window: Press CMD + Space and type `Terminal` 
 
     Install Homebrew (skip if already installed):  
     `$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` 
@@ -50,25 +50,25 @@ You are now ready to use MinecraftHDL, launch a new creative world, and scroll t
 
 ### Synthesizing your Verilog files
 
-1. Go back to where you extracted the `MinecraftHDL_*.zip` file
-Copy the verilog files you want to generate in the `verilog/<your OS>` folder
+1. Go back to where you extracted the `MinecraftHDL_*.zip` file  
+    Copy the verilog files you want to generate in the `verilog/<your OS>` folder
 
-2. Synthesize the file:
-**Windows**:
-There are 2 ways to do this in windows
-*Simple Way*:
-    1. rename your file to `myfile.v`
-    2. double click synth.bat
-    3. the generated output is the `myfile.v.json` file
+2. Synthesize the file:  
+**Windows**:  
+    There are 2 ways to do this in windows  
+    *Simple Way*:  
+    1. rename your file to `myfile.v`  
+    2. double click synth.bat  
+    3. the generated output is the `myfile.v.json` file  
 
-    *Slightly More Advanced Way:*
-    1. Open a the command prompt
-    2. Cd to the `verilog/windows` folder
-    3. run the command `> synth.bat <verilog_file_name>.v`
-    4. the generated output is the `<verilog_file_name>.v.json` file
+    *Slightly More Advanced Way:*  
+    1. Open a the command prompt  
+    2. Cd to the `verilog/windows` folder  
+    3. run the command `> synth.bat <verilog_file_name>.v`  
+    4. the generated output is the `<verilog_file_name>.v.json` file  
 
-    **Mac OSX**:
-    There is only one way to do this in mac
+    **Mac OSX**:  
+    There is only one way to do this in mac  
     1. Open a terminal window and CD into the `verilog/mac` folder where you copied your verilog file
     2. Run `$ ./synth.sh <verilog_file_name.v>`
     3. the generated output is the `<verilog_file_name>.v.json` file
