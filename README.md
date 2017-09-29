@@ -57,7 +57,9 @@ Supervisor: Brett H. Meyer - [Website](http://rssl.ece.mcgill.ca/~bhm/)
 Students:&nbsp;&nbsp;&nbsp;&nbsp;Francis O'Brien - [Website](http://francisobrien.com)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Omar Ba Mashmos  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Andrew Penhale  
-### Sublime's custom image
+
+
+
 <p align="center">
   <img src="https://github.com/itsFrank/MinecraftHDL/blob/master/screenshots/7seg.gif?raw=true" alt="2b7seg"/>
 </p>  
