@@ -1,0 +1,123 @@
+{
+  "creator": "Yosys 0.7 (git sha1 61f6811, i686-w64-mingw32.static-gcc 4.9.3 -Os)",
+  "modules": {
+    "sevenseg": {
+      "attributes": {
+        "src": "autoyosys\\tmp.v:1"
+      },
+      "ports": {
+        "I1": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "I2": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "S1": {
+          "direction": "output",
+          "bits": [ 4 ]
+        },
+        "S2": {
+          "direction": "output",
+          "bits": [ 5 ]
+        },
+        "S3": {
+          "direction": "output",
+          "bits": [ 6 ]
+        },
+        "S4": {
+          "direction": "output",
+          "bits": [ 7 ]
+        },
+        "S5": {
+          "direction": "output",
+          "bits": [ 8 ]
+        },
+        "S6": {
+          "direction": "output",
+          "bits": [ 9 ]
+        },
+        "S7": {
+          "direction": "output",
+          "bits": [ 10 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "I1": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:2"
+          }
+        },
+        "I2": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:2"
+          }
+        },
+        "S1": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:3"
+          }
+        },
+        "S2": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:3"
+          }
+        },
+        "S3": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:3"
+          }
+        },
+        "S4": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:3"
+          }
+        },
+        "S5": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:3"
+          }
+        },
+        "S6": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:3"
+          }
+        },
+        "S7": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:3"
+          }
+        },
+        "s7": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "autoyosys\\tmp.v:12",
+            "unused_bits": "0"
+          }
+        }
+      }
+    }
+  }
+}

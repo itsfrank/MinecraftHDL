@@ -1,0 +1,14 @@
+*
+!src/
+!src/**
+
+!verilog/
+!verilog/**
+
+!markdown/
+!markdown/**
+
+!screenshots/
+!screenshots/**
+
+!README.md

@@ -1,14 +1,14 @@
-module mux (a, b, c, d, s, o); 
-  input a,b,c,d; 
-  input  [1:0] s;
-  output o; 
-  reg    o; 
- 
-  always @(a or b or c or d or s) 
-  begin 
-      if (s == 2'b00) o = a; 
-    else if (s == 2'b01) o = b; 
-    else if (s == 2'b10) o = c; 
-    else                 o = d; 
-  end 
-endmodule 
+module sevenseg (
+    input I1, I2,
+    output S1, S2, S3, S4, S5, S6, S7
+);
+
+assign s1 = ~I2 || I1;
+assign s2 = 1;
+assign s3 = ~I1 || I2;
+assign s4 = ~I2 || I1;
+assign s5 = ~I2;
+assign s6 = ~I1 && ~I2;
+assign s7 = I1;
+
+endmodule

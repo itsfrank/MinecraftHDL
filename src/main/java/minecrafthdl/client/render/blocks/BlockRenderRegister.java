@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
  */
 public class BlockRenderRegister {
     public static void registerBlockRenderer() {
-        reg(ModBlocks.tutorialBlock);
+        reg(ModBlocks.synthesizer);
     }
 
     public static void reg(Block block) {

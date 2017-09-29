@@ -1,29 +1,55 @@
-# Setting up the development environment
+[comment]: Images 
+[mux4_short]: https://github.com/itsFrank/MinecraftHDL/blob/pre_release/screenshots/mux4_short.png?raw=true 
+ 
+ 
+# Minecraft HDL 
+ 
+Minecraft HDL is a digital synthesis flow for minecraft redstone circuits. It is an attempt to use industry standard design tools and methods to generate digital circuits with redstone. 
+ 
+### Example: 
+ 
+ 
+This file `multiplexer4_1.v` is a 6 input - 1 output circuit that selects one of the first 4 inputs (a, b, c, d) as the output based on the value of the last 2 inputs (x, y) 
+ 
+```verilog 
+module multiplexer4_1 ( a ,b ,c ,d ,x ,y ,dout ); 
+ 
+output dout ; 
+input a, b, c, d, x, y; 
+ 
+assign dout = (a & (~x) & (~y)) | 
+     (b & (~x) & (y)) |  
+     (c & x & (~y)) | 
+     (d & x & y); 
+endmodule 
+``` 
+ 
+When synthesized through Minecraft HDL if produces this circuit: 
+ 
+ 
+![4to1mux][mux4_short] 
+ 
+ 
+With the 6 inputs on the right and the single output on the left 
+ 
+ 
+--- 
+# Quick Links 
+- [Screenshots & Sample Circuits] 
+- [Getting Started - Installing and Using MinecraftHDL](markdown/GETTING_STARTED.md) 
+- [Background Theory - Digital Design & Verilog] 
+- [How MinecraftHDL Works - Methods, Algorithms, Tools] 
+- [Known Limitations & Future Work] 
+- [Acknowledgments & Licensing] 
+- [Developper Info - If you want to fork or contribute](markdown/DEV_SETUP.md)
+--- 
+# About 
+MinecraftHDL was the final undergraduate design project made by three students in the Electrical, Computer & Software Engineering department at McGill University.  
+ 
+It is by no means bug-free or even complete; It produces objectively inferior circuits to 'hand-made' redstone designs, and is not intended to be used in modded survival. It can generate almost any verilog circuit, however only simple designs will actually be testable in-game since any moderately-complex design will end up being longer than the maximum number of blocks loaded in Minecraft. 
 
-
-## 1. Get Intellij IDEA
-Download it [here](https://www.jetbrains.com/idea/specials/idea/idea.html?&gclid=CjwKEAjwydK_BRDK34GenvLB61YSJACZ8da3DYKMBBJKwurnBjpJjU_oTfSrQp7vRMZi97t2dUEDjhoCQSfw_wcB&gclsrc=aw.ds.ds&dclid=CN6cteOtxM8CFUYFDAodlPQLdQ)
-*set your theme to dark because white themes are for losers
-
-## 2. Get MinecraftForge
-Download [here](https://files.minecraftforge.net/), get the MDK version (1.10.2 - 12.18.1.2011) for minecraft 1.10
-This is the version under "Download recomended" as of the writing of this file.
-Extract it in the folder where you want the project to be located
-
-## 3. Follow the video
-this [video](https://www.youtube.com/watch?v=PfmlNiHonV0)
-
-## 4. Open a terminal window with Git installed
-navigate to the folder in which you extracted the MDK
-
-## 5. set up Git
-Run these commands:
-```
-$ git init
-$ git remote add origin https://github.com/itsFrank/MinecraftHDL.git
-$ git pull origin master
-```
-
-**Delete the package 'com.example.examplemod' and all its contents
-
-## 6. Branch out from master and have fun!
+Additionally, we are currently unable to synthesize sequential circuits, aka any circuits with a loopback or feedback. That means no memory, no counters or any circuit that could hold a state.
+ 
+MinecraftHDL is an educational tool to illustrate on a macro-scopic scale how microelectronic digital circuits are designed and produced. It is a great way to introduce younger audiences to the world of digital design and can also be used to illustrate the difference between software and hardware design to undergraduate engineers taking their first RTL class. 
+ 
+ 
