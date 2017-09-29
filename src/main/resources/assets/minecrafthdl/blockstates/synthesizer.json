@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "triggered=true": {
+      "model": "minecrafthdl:synthesizer"
+    },
+    "triggered=false": {
+      "model": "minecrafthdl:synthesizer"
+    }
+  }
+}

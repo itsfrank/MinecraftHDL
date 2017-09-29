@@ -3,9 +3,12 @@ package minecrafthdl.synthesis;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ public class Circuit {
     public static boolean TEST = false;
 
     ArrayList<ArrayList<ArrayList<IBlockState>>> blocks;
+    HashMap<Vec3i, TileEntity> te_map = new HashMap<Vec3i, TileEntity>();
 
     public Circuit(int sizeX, int sizeY, int sizeZ){
         this.blocks = new ArrayList<ArrayList<ArrayList<IBlockState>>>();
@@ -62,8 +66,8 @@ public class Circuit {
         }
 
         int y = start_y - 1;
-        for (int x = start_x - 1; x < start_x + width + 1; x++){
-            for (int z = start_z - 1; z < start_z + length + 1; z ++){
+        for (int z = start_z - 1; z < start_z + length + 1; z ++){
+            for (int x = start_x - 1; x < start_x + width + 1; x++){
                 worldIn.setBlockState(new BlockPos(x, y, z), Blocks.STONEBRICK.getDefaultState());
             }
         }
@@ -76,7 +80,13 @@ public class Circuit {
                     if (this.getState(i, j, k).getBlock().getDefaultState() == Blocks.REDSTONE_TORCH.getDefaultState()) {
                         torches.put(new Vec3i(i, j, k), this.getState(i, j, k));
                     } else {
-                        worldIn.setBlockState(new BlockPos(start_x + i, start_y + j, start_z + k), this.getState(i, j, k));
+                        BlockPos blk_pos = new BlockPos(start_x + i, start_y + j, start_z + k);
+                        worldIn.setBlockState(blk_pos, this.getState(i, j, k));
+
+                        TileEntity te = this.te_map.get(new Vec3i(i, j, k));
+                        if (te != null) {
+                            worldIn.setTileEntity(blk_pos, te);
+                        }
                     }
                 }
             }
@@ -108,6 +118,11 @@ public class Circuit {
             for (int y = 0; y < c.getSizeY(); y++) {
                 for (int z = 0; z < c.getSizeZ(); z++) {
                     this.setBlock(x + x_offset, y + y_offset, z + z_offset, c.getState(x, y, z));
+
+                    TileEntity te = c.te_map.get(new Vec3i(x, y, z));
+                    if (te != null) {
+                        this.te_map.put(new Vec3i(x + x_offset, y + y_offset, z + z_offset), te);
+                    }
                 }
             }
         }

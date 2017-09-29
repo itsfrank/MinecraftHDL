@@ -299,13 +299,18 @@ public class Channel {
                         channel.setBlock(p.xPos(), 0, z, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
                     }
                 }
+                if (!(!n.outpath && n.out_partner != null)) {
+                    if (p.xPos() > n.x_min) {
+                        if (p.xPos() > n.top_pin.xPos())
+                            channel.setBlock(p.xPos() - 1, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.WEST));
+                    }
 
-                if (p.xPos() > n.x_min) {
-                    if (p.xPos() > n.top_pin.xPos()) channel.setBlock(p.xPos() - 1, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.WEST));
-                }
-
-                if (p.xPos() < n.x_max) {
-                    if (p.xPos() < n.top_pin.xPos()) channel.setBlock(p.xPos() + 1, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.EAST));
+                    if (p.xPos() < n.x_max) {
+                        if (p.xPos() < n.top_pin.xPos())
+                            channel.setBlock(p.xPos() + 1, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.EAST));
+                    }
+                } else {
+                    channel.setBlock(p.xPos() + 1, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.EAST));
                 }
             }
         }
@@ -316,8 +321,14 @@ public class Channel {
                     if (x == p.xPos()) x-= 1;
                 }
 
-                if (x < n.top_pin.xPos()) channel.setBlock(x, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.EAST));
-                if (x > n.top_pin.xPos()) channel.setBlock(x, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.WEST));
+                if (!(!n.outpath && n.out_partner != null)) {
+                    if (x < n.top_pin.xPos())
+                        channel.setBlock(x, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.EAST));
+                    if (x > n.top_pin.xPos())
+                        channel.setBlock(x, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.WEST));
+                } else {
+                    channel.setBlock(x, 2, n.trackZ(), Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.EAST));
+                }
             }
         }
 

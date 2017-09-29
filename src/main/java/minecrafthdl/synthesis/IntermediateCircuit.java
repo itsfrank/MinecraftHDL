@@ -2,6 +2,7 @@ package minecrafthdl.synthesis;
 
 import MinecraftGraph.*;
 import minecrafthdl.MHDLException;
+import minecrafthdl.Utils;
 import minecrafthdl.synthesis.routing.Channel;
 import minecrafthdl.synthesis.routing.Net;
 import minecrafthdl.synthesis.routing.Router;
@@ -9,6 +10,9 @@ import minecrafthdl.synthesis.routing.pins.GatePins;
 import minecrafthdl.synthesis.routing.pins.PinsArray;
 import minecrafthdl.testing.TestLogicGates;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,10 +79,29 @@ public class IntermediateCircuit {
             to_process.clear();
             layer_num++;
 
-//            if (size == in_process.size()){
-//                System.out.println("");
-//                throw new MHDLException("INFINITE LOOP");
-//            }
+        }
+
+        ArrayList<Vertex> outputs_not_in_last = new ArrayList<Vertex>();
+
+        for (ArrayList<Vertex> v_l : this.vertex_layers){
+            if (this.vertex_layers.indexOf(v_l) == vertex_layers.size() - 1) break;
+            ArrayList<Vertex> to_remove = new ArrayList<Vertex>();
+
+            for (Vertex v : v_l){
+                if (v.type == VertexType.OUTPUT) {
+                    outputs_not_in_last.add(v);
+                    to_remove.add(v);
+                }
+            }
+
+            for (Vertex v : to_remove){
+                v_l.remove(v);
+            }
+        }
+
+        ArrayList<Vertex> last_layer = this.vertex_layers.get(this.vertex_layers.size() - 1);
+        for (Vertex v : outputs_not_in_last){
+            last_layer.add(v);
         }
 
         for (int i = 0; i < vertex_layers.size() - 1; i++){
@@ -143,11 +166,7 @@ public class IntermediateCircuit {
         for (ArrayList<Vertex> v_layer : this.vertex_layers) {
             ArrayList<Gate> this_layer = new ArrayList<Gate>();
             for (Vertex v : v_layer) {
-                if (v.getType() == VertexType.FUNCTION) {
-                    this_layer.add(genGate(((Function) v).getFunc_Type(), ((Function) v).get_num_inputs()));
-                } else {
-                    this_layer.add(genGate(FunctionType.IO, 1));
-                }
+                this_layer.add(genGate(v));
             }
             this.gate_layers.add(this_layer);
         }
@@ -218,8 +237,9 @@ public class IntermediateCircuit {
                 circuit.insertCircuit(x_offset, 0, z_offset, g);
 
                 if (g.getSizeZ() - 1 < layers_size_z[i]) {
-                    for (int z = g.getSizeZ(); z <= layers_size_z[i]; z++){
-                        circuit.setBlock(x_offset, 0, z_offset + z, Blocks.REDSTONE_WIRE.getDefaultState());
+                    for (int z = g.getSizeZ(); z < layers_size_z[i]; z++){
+                        if (z == layers_size_z[i] - 1) circuit.setBlock(x_offset, 0, z_offset + z, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(Utils.getPropertyByName(Blocks.UNPOWERED_REPEATER, "facing"), EnumFacing.NORTH));
+                        else circuit.setBlock(x_offset, 0, z_offset + z, Blocks.REDSTONE_WIRE.getDefaultState());
                     }
                 }
 
@@ -237,31 +257,51 @@ public class IntermediateCircuit {
         return circuit;
     }
 
+    private static FunctionType getFunctionType(Vertex v) {
 
-    private static Gate genGate(FunctionType func_type, int num_inputs) {
-        if (func_type == FunctionType.AND) {
-            return Circuit.TEST? TestLogicGates.AND(num_inputs) : LogicGates.AND(num_inputs);
-        } else if ( func_type == FunctionType.OR){
-            return Circuit.TEST? TestLogicGates.OR(num_inputs) : LogicGates.OR(num_inputs);
-        } else if ( func_type == FunctionType.INV){
+        if (v.getType() == VertexType.FUNCTION) {
+            return ((Function) v).getFunc_Type();
+        } else {
+            if (v.getType() == VertexType.INPUT) return FunctionType.Input;
+            else return FunctionType.Output;
+        }
+
+    }
+
+
+    private static Gate genGate(Vertex v) {
+        if (getFunctionType(v) == FunctionType.AND) {
+            return Circuit.TEST? TestLogicGates.AND(((Function)v).get_num_inputs()) : LogicGates.AND(((Function)v).get_num_inputs());
+        } else if ( getFunctionType(v) == FunctionType.OR){
+            return Circuit.TEST? TestLogicGates.OR(((Function)v).get_num_inputs()) : LogicGates.OR(((Function)v).get_num_inputs());
+        } else if ( getFunctionType(v) == FunctionType.INV){
             return Circuit.TEST? TestLogicGates.NOT() : LogicGates.NOT();
-        } else if ( func_type == FunctionType.RELAY) {
+        } else if ( getFunctionType(v) == FunctionType.RELAY) {
             return Circuit.TEST ? TestLogicGates.RELAY() : LogicGates.RELAY();
-        }else if ( func_type == FunctionType.XOR){
+        }else if ( getFunctionType(v) == FunctionType.XOR){
             return Circuit.TEST? TestLogicGates.IO() : LogicGates.XOR();
-        }else if ( func_type == FunctionType.MUX){
+        }else if ( getFunctionType(v) == FunctionType.MUX){
             return Circuit.TEST? TestLogicGates.IO() : LogicGates.MUX();
-        }else if ( func_type == FunctionType.IO){
-            return Circuit.TEST? TestLogicGates.IO() : LogicGates.IO();
-        }else if ( func_type == FunctionType.HIGH){
+        }
+//        else if ( getFunctionType(v )== FunctionType.IO){
+//            return Circuit.TEST? TestLogicGates.IO() : LogicGates.IO();
+//        }
+        else if ( getFunctionType(v) == FunctionType.Input){
+            return Circuit.TEST? TestLogicGates.IO() : LogicGates.Input(v.getID());
+        }else if ( getFunctionType(v) == FunctionType.Output){
+            return Circuit.TEST? TestLogicGates.IO() : LogicGates.Output(v.getID());
+        }else if ( getFunctionType(v) == FunctionType.HIGH){
             return Circuit.TEST? TestLogicGates.IO() : LogicGates.HIGH();
-        }else if ( func_type == FunctionType.LOW){
+        }else if ( getFunctionType(v) == FunctionType.LOW){
             return Circuit.TEST? TestLogicGates.IO() : LogicGates.LOW();
-        }else if ( func_type == FunctionType.D_LATCH){
+        }else if ( getFunctionType(v) == FunctionType.D_LATCH){
             return Circuit.TEST? TestLogicGates.IO() : LogicGates.D_LATCH();
         }
         else throw new MHDLException("NO SUCH GATE AVAILABLE");
     }
 
 
+    public void verify(World worldIn, BlockPos pos) {
+
+    }
 }

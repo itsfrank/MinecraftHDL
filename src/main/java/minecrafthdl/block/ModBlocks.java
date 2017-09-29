@@ -9,9 +9,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public final class ModBlocks {
 
-    public static Block tutorialBlock;
+    public static Block synthesizer;
 
     public static void createBlocks() {
-        GameRegistry.registerBlock(tutorialBlock = new Synthesizer("tutorial_block"), "tutorial_block");
+        GameRegistry.registerBlock(synthesizer = new Synthesizer("synthesizer"), "synthesizer");
     }
 }
