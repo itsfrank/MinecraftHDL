@@ -38,7 +38,7 @@ With the 6 inputs on the right and the single output on the left
 # Quick Links 
 - [Screenshots & Sample Circuits](markdown/SAMPLES.md) 
 - [Getting Started - Installing and Using MinecraftHDL](markdown/GETTING_STARTED.md) 
-- [Background Theory - Digital Design & Verilog] 
+- [Background Theory - Digital Design & Verilog](markdown/BACKGROUND.md)
 - [How MinecraftHDL Works - Read Our Paper](markdown/minecrafthdl-digital-synthesis.pdf)
 - [Known Limitations & Future Work] 
 - [Acknowledgments & Licensing] 
