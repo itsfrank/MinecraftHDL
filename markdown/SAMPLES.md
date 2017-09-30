@@ -27,7 +27,7 @@ endmodule
  Sample Output  
   ![1bit_full_adder_output][1bfa_o]  
  In this case we are calculating '1' + '1' with no carry in. The result is the binary number "10" however since out output is only 1 bit, the output A is actually '0' and the carry out Cout is set to '1'.
-
+---
 ### Logical Funtioning Unit
 This circuit is an "all-in-one" 1-bit boolean calculator. It has 2 control signals that select the operation we want to do and 2 inputs. The output is the result of the operation selected by C1 and C2 using the inputs a and b.
 ```verilog
@@ -58,7 +58,7 @@ The control values correspond to the folowing operations:
 
 **Minecraft Circuit**
 ![lfu][lfu] 
- 
+ ---
  ### 2Bit 7-Segment Display Decoder
 This circuit controls the state of the 7 segments of a 7-segment display. For this example we only decode a 2Bit number (that means we can display numbers 0, 1, 2, and 3); We chose 2Bits because a full 0-9 decoder would have been too large. However MinecraftHDL does generate it properly.
 ```verilog
