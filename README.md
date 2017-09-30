@@ -1,6 +1,7 @@
 [comment]: Images 
 [mux4_short]: https://github.com/itsFrank/MinecraftHDL/blob/master/screenshots/mux4_short.png?raw=true 
 [7seg_gif]: https://github.com/itsFrank/MinecraftHDL/blob/master/screenshots/7seg.gif?raw=true 
+[flow]: https://github.com/itsFrank/MinecraftHDL/blob/master/screenshots/flow.png?raw=true 
  
  
 # Minecraft HDL 
@@ -45,6 +46,9 @@ With the 6 inputs on the right and the single output on the left
 - [Developper Info - If you want to fork or contribute](markdown/DEV_SETUP.md)
 --- 
 # About 
+
+![MHDL_FLOW][flow]
+
 MinecraftHDL was the final undergraduate design project made by three students in the Electrical, Computer & Software Engineering department at McGill University.  
  
 It is by no means bug-free or even complete; It produces objectively inferior circuits to 'hand-made' redstone designs, and is not intended to be used in modded survival. It can generate almost any verilog circuit, however only simple designs will actually be testable in-game since any moderately-complex design will end up being longer than the maximum number of blocks loaded in Minecraft. 
