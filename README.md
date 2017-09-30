@@ -41,9 +41,10 @@ With the 6 inputs on the right and the single output on the left
 - [Getting Started - Installing and Using MinecraftHDL](markdown/GETTING_STARTED.md) 
 - [Background Theory - Digital Design & Verilog](markdown/BACKGROUND.md)
 - [How MinecraftHDL Works - Read Our Paper](markdown/minecrafthdl-digital-synthesis.pdf)
-- [Known Limitations & Future Work] 
-- [Acknowledgments & Licensing] 
+- [Known Limitations & Future Work](markdown/FUTURE.md)
+- [Acknowledgments & Licensing](markdown/LICENSING.md)
 - [Developper Info - If you want to fork or contribute](markdown/DEV_SETUP.md)
+- [Quick Overview - Check out our poster](https://github.com/itsFrank/MinecraftHDL/blob/master/markdown/poster_pdf.pdf)
 --- 
 # About 
 
