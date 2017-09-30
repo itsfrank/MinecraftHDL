@@ -15,6 +15,18 @@ If you are interested in learning more about verilog, here are some good places 
 
 
 * http://www.asic-world.com/verilog/veritut.html
-* http://www.asic-world.com/verilog/verilog_one_day.html
 * http://vol.verilog.com/
+
+
+### Channel Routing
+In MinecraftHDL we use a method called channel routing to connect the different layers of logic gates. Here is a great lecture on the subject:
+
+www.yzuda.org/slides/20080711.ppt
+
+
+### Yosys
+Yosys is the tool we use to transform a verilog file into a netlist of gates, it is open source and supports almost the entirety of Verilog:
+
+http://www.clifford.at/yosys/
+
 
