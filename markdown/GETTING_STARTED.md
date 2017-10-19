@@ -19,7 +19,7 @@ This mod has the potential to destroy massive chunks of your world! It is intend
     **Mac OSX**: Get the `Installer` JAR  
     Run the installer and select the "Minecraft Client" option when prompted.  
 
-3. Download the MinecraftHDL release zip from here:  
+3. Download the MinecraftHDL release archive from here:  
     https://github.com/itsFrank/MinecraftHDL/releases  
     Extract it somewhere (remember where!)  
     Then copy the JAR in the "mods" folder where minecraft forge is installed.  
