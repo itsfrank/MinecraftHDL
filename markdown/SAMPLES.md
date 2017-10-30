@@ -7,8 +7,8 @@
 # Sample Circuits and Screenshots
 
 ### 1Bit Full Adder
-This curcuit calculates the result of adding two bits together as well as a carried value form a previous addition.
-Chaining multiple of these adders together by connecting the Cout and Cin of subsequent adders is how simpple multiple bit adders work.
+This circuit calculates the result of adding two bits together as well as a carried value form a previous addition.
+Chaining multiple of these adders together by connecting the Cout and Cin of subsequent adders is how simple multiple bit adders work.
 ```verilog
 module fulladder
 (
