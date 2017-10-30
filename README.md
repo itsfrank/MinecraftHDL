@@ -72,7 +72,7 @@ Students:&nbsp;&nbsp;&nbsp;&nbsp;Francis O'Brien - [Website](http://francisobrie
  
  To show how easy it is to make a circuit with MinecraftHDL here is a gif of me creating a circuit, synthesizing, and generating it in minecraft in less than a minute!
 
- [The Gif!](https://i.imgur.com/IXk9Ubh.gifv)
+ [The Gif!](https://i.imgur.com/IXk9Ubh.gif)
 
 The circuit I generate above is a 2bit adder. It takes two numbers of two bits and adds them. At the end of the gif I set both input numbers to '11' which is the binary representation of the number 3. Then I move to the output and we see that O3=1, O2=1, and O1=0, this gives the binary number '110' which is indeed 6.
  
