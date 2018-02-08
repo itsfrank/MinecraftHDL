@@ -3,6 +3,7 @@ package minecrafthdl;
 import minecrafthdl.synthesis.CircuitTest;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
 
 /**
  * Created by Francis on 10/28/2016.

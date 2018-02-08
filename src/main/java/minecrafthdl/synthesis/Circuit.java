@@ -1,6 +1,10 @@
 package minecrafthdl.synthesis;
 
+import com.google.common.collect.ImmutableMap;
+import minecrafthdl.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
@@ -62,7 +66,7 @@ public class Circuit {
         } else if (direction == EnumFacing.EAST){
             start_x -= width + 1;
         } else if (direction == EnumFacing.WEST) {
-            start_x -= width + 1;
+            start_x += 2;
         }
 
         int y = start_y - 1;
@@ -126,5 +130,114 @@ public class Circuit {
                 }
             }
         }
+    }
+
+    public void rotateLeft() {
+        HashMap<EnumFacing, EnumFacing> rot_facing = new HashMap<EnumFacing, EnumFacing>();
+        rot_facing.put(EnumFacing.DOWN, EnumFacing.DOWN);
+        rot_facing.put(EnumFacing.UP, EnumFacing.UP);
+        rot_facing.put(EnumFacing.NORTH, EnumFacing.WEST);
+        rot_facing.put(EnumFacing.SOUTH, EnumFacing.EAST);
+        rot_facing.put(EnumFacing.WEST, EnumFacing.SOUTH);
+        rot_facing.put(EnumFacing.EAST, EnumFacing.NORTH);
+
+        ArrayList<ArrayList<ArrayList<IBlockState>>> new_blocks = new ArrayList<ArrayList<ArrayList<IBlockState>>>();
+
+        int width = blocks.size();
+        int height = blocks.get(0).size();
+        int length = blocks.get(0).get(0).size();
+
+        for (int z = 0; z < length; z++) {
+            new_blocks.add(new ArrayList<ArrayList<IBlockState>>());
+            for (int y = 0; y < height; y++) {
+                new_blocks.get(z).add(new ArrayList<IBlockState>());
+                for (int x = 0; x < width; x++) {
+                    if (!Circuit.TEST) new_blocks.get(z).get(y).add(Blocks.AIR.getDefaultState());
+                }
+            }
+        }
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int z = 0; z < length; z++) {
+                    IBlockState block = this.blocks.get(x).get(y).get(z);
+
+                    for (Map.Entry<IProperty<?>, Comparable<?>> e : block.getProperties().entrySet()) {
+                        if (e.getKey().getName().equals("facing")) {
+                            block = block.getBlock().getDefaultState().withProperty(Utils.getPropertyByName(block.getBlock(), "facing"), rot_facing.get(e.getValue()));
+                        } else if (e.getKey().getName().equals("rotation")) {
+                            block = block.getBlock().getDefaultState().withProperty(Utils.getPropertyByName(block.getBlock(), "rotation"), ((((((Integer)e.getValue()) - 4) % 16) + 16) % 16));
+                        }
+
+                    }
+                    new_blocks.get(z).get(y).set(width - 1 - x, block);
+                }
+            }
+        }
+
+        HashMap<Vec3i, TileEntity> new_te_map = new HashMap<Vec3i, TileEntity>();
+        for (Map.Entry<Vec3i, TileEntity> e : te_map.entrySet()) {
+            Vec3i v = e.getKey();
+            new_te_map.put(new Vec3i(v.getZ(), v.getY(), width - 1 - v.getX()), e.getValue());
+        }
+
+        this.blocks = new_blocks;
+        this.te_map = new_te_map;
+    }
+
+    public void rotateRight() {
+        HashMap<EnumFacing, EnumFacing> rot_facing = new HashMap<EnumFacing, EnumFacing>();
+        rot_facing.put(EnumFacing.DOWN, EnumFacing.DOWN);
+        rot_facing.put(EnumFacing.UP, EnumFacing.UP);
+        rot_facing.put(EnumFacing.NORTH, EnumFacing.EAST);
+        rot_facing.put(EnumFacing.SOUTH, EnumFacing.WEST);
+        rot_facing.put(EnumFacing.WEST, EnumFacing.NORTH);
+        rot_facing.put(EnumFacing.EAST, EnumFacing.SOUTH);
+
+        ArrayList<ArrayList<ArrayList<IBlockState>>> new_blocks = new ArrayList<ArrayList<ArrayList<IBlockState>>>();
+
+        int width = blocks.size();
+        int height = blocks.get(0).size();
+        int length = blocks.get(0).get(0).size();
+
+        for (int z = 0; z < length; z++) {
+            new_blocks.add(new ArrayList<ArrayList<IBlockState>>());
+            for (int y = 0; y < height; y++) {
+                new_blocks.get(z).add(new ArrayList<IBlockState>());
+                for (int x = 0; x < width; x++) {
+                    if (!Circuit.TEST) new_blocks.get(z).get(y).add(Blocks.AIR.getDefaultState());
+                }
+            }
+        }
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int z = 0; z < length; z++) {
+                    IBlockState block = this.blocks.get(x).get(y).get(z);
+
+                    for (Map.Entry<IProperty<?>, Comparable<?>> e : block.getProperties().entrySet()) {
+                        if (e.getKey().getName().equals("facing")) {
+                            block = block.getBlock().getDefaultState().withProperty(Utils.getPropertyByName(block.getBlock(), "facing"), rot_facing.get(e.getValue()));
+                        } else if (e.getKey().getName().equals("rotation")) {
+                            block = block.getBlock().getDefaultState().withProperty(Utils.getPropertyByName(block.getBlock(), "rotation"), ((((((Integer)e.getValue()) + 4) % 16) + 16) % 16));
+                        }
+                    }
+                    new_blocks.get(length - 1 - z).get(y).set(x, block);
+                }
+            }
+        }
+
+        HashMap<Vec3i, TileEntity> new_te_map = new HashMap<Vec3i, TileEntity>();
+        for (Map.Entry<Vec3i, TileEntity> e : te_map.entrySet()) {
+            Vec3i v = e.getKey();
+            new_te_map.put(new Vec3i(length - 1 - v.getZ(), v.getY(), v.getX()), e.getValue());
+        }
+
+        this.blocks = new_blocks;
+        this.te_map = new_te_map;
+    }
+
+    public void rotate180() {
+
     }
 }

@@ -51,6 +51,9 @@ public class IntermediateCircuit {
             int size = in_process.size();
             vertex_layers.add(new ArrayList<Vertex>());
             for (Vertex v : in_process){
+                if (v.removed) {
+                    System.out.println("wtf");
+                }
                 boolean valid = true;
                 for (Vertex p : v.getBefore()){
                     if (!finished.contains(p)) {

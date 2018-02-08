@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public abstract class Vertex {
 	
 	public VertexType type;
-	protected int bits_n;
+	public int bits_n;
+	public boolean removed = false;
 	private int counter=0;
 	private ArrayList<Vertex> next=new ArrayList<Vertex>();
 	private ArrayList<Vertex> before=new ArrayList<Vertex>();
@@ -29,12 +30,21 @@ public abstract class Vertex {
 	
 	public abstract String getID();
 
-	
-	
+
 	public void addToNext(Vertex v){
 		counter++;
 		this.next.add(v);
 	}
+
+	public void merge(Vertex v) {
+		this.before.addAll(v.getBefore());
+		for (Vertex bb : v.before) {
+			bb.next.remove(v);
+			bb.next.add(this);
+		}
+		this.before.remove(v);
+	}
+
 	public ArrayList<Vertex> getNext(){
 		return this.next;
 	}

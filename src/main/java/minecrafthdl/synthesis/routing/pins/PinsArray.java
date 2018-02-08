@@ -32,12 +32,16 @@ public class PinsArray {
         } else {
             PinPair pair = this.pairs.get(index);
 
-            if(top){
+            if(p.top){
                 if (pair.top.empty()) pair.top = p;
-                else throw new MHDLException("Attempting to overwrite pin in pair");
+                else {
+                    throw new MHDLException("Attempting to overwrite pin in pair");
+                }
             } else {
                 if (pair.bot.empty()) pair.bot = p;
-                else throw new MHDLException("Attempting to overwrite pin in pair");
+                else {
+                    throw new MHDLException("Attempting to overwrite pin in pair");
+                }
             }
         }
     }

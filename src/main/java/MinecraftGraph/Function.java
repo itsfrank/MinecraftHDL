@@ -37,6 +37,6 @@ public class Function extends Vertex {
 	}
 
 	public int get_num_inputs() {
-		return this.bits_n;
+		return this.getBefore().size();
 	}
 }

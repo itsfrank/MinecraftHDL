@@ -120,7 +120,13 @@ public class Router {
                 net.addPin(next_pin, false);
 
                 for (Vertex next_vertex : v.getNext()){
-                    net.addPin(pin_map.get(next_vertex).getNextPin(v), false);
+                    if (v.removed) continue;
+                    try {
+                        Pin np = pin_map.get(next_vertex).getNextPin(v);
+                        net.addPin(pin_map.get(next_vertex).getNextPin(v), false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

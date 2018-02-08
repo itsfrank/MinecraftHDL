@@ -6,6 +6,7 @@ import minecrafthdl.MinecraftHDL;
 import minecrafthdl.block.BasicBlock;
 import minecrafthdl.gui.MinecraftHDLGuiHandler;
 import minecrafthdl.synthesis.Circuit;
+import minecrafthdl.synthesis.Gate;
 import minecrafthdl.synthesis.IntermediateCircuit;
 import minecrafthdl.synthesis.LogicGates;
 import net.minecraft.block.Block;
@@ -66,16 +67,14 @@ public class Synthesizer extends BasicBlock {
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
 
                     if (Synthesizer.file_to_gen != null){
-                        synth_gen(worldIn, pos);
-
+                        synth_gen(worldIn, pos, EnumFacing.NORTH, 0);
                     }
                 }else if (worldIn.getRedstonePower(pos.east(), EnumFacing.EAST) > 0) {
                     //Negative X is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
 
                     if (Synthesizer.file_to_gen != null){
-                        synth_gen(worldIn, pos);
-
+                        synth_gen(worldIn, pos, EnumFacing.EAST, 1);
                     }
 
                 }else if (worldIn.getRedstonePower(pos.south(), EnumFacing.SOUTH) > 0) {
@@ -83,15 +82,14 @@ public class Synthesizer extends BasicBlock {
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
 
                     if (Synthesizer.file_to_gen != null){
-                        synth_gen(worldIn, pos);
-
+                        synth_gen(worldIn, pos, EnumFacing.SOUTH, 3);
                     }
                 }else if (worldIn.getRedstonePower(pos.west(), EnumFacing.WEST) > 0) {
                     //Positive X is receiving power
                     worldIn.setBlockState(pos, state.withProperty(TRIGGERED, true));
 
                     if (Synthesizer.file_to_gen != null){
-                        synth_gen(worldIn, pos);
+                        synth_gen(worldIn, pos, EnumFacing.WEST, 2);
                     }
                 }else if (worldIn.getRedstonePower(pos.up(), EnumFacing.UP) > 0) {
                     //Positive Y is receiving power
@@ -112,7 +110,7 @@ public class Synthesizer extends BasicBlock {
         }
     }
 
-    private void synth_gen(World worldIn, BlockPos pos){
+    private void synth_gen(World worldIn, BlockPos pos, EnumFacing facing, int rotation){
         try {
 
             IntermediateCircuit ic = new IntermediateCircuit();
@@ -120,7 +118,17 @@ public class Synthesizer extends BasicBlock {
             ic.buildGates();
             ic.routeChannels();
             this.c_check = ic.genCircuit();
-            c_check.placeInWorld(worldIn, pos, EnumFacing.NORTH);
+
+            if (rotation == 1) {
+                c_check.rotateRight();
+            } else if (rotation == 2) {
+                c_check.rotateLeft();
+            } else if (rotation == 3) {
+                c_check.rotateRight();
+                c_check.rotateRight();
+            }
+
+            c_check.placeInWorld(worldIn, pos, facing);
             this.to_check = true;
             this.p_check = pos;
 
