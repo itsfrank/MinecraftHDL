@@ -30,11 +30,11 @@ public class GatePins {
 
         if (top){
             for(int i = 0; i < g.num_outputs; i++){
-                pins.add(new Pin(offset + (i * (1 + g.output_spacing)), true));
+                pins.add(new Pin(offset + (i * (1 + g.output_spacing)), true, v));
             }
         } else {
             for(int i = 0; i < g.num_inputs; i++){
-                pins.add(new Pin(offset + (i * (1 + g.input_spacing)), false));
+                pins.add(new Pin(offset + (i * (1 + g.input_spacing)), false, v));
             }
         }
     }

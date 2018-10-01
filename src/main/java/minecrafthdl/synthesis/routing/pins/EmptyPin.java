@@ -8,7 +8,7 @@ import minecrafthdl.MHDLException;
 
 public class EmptyPin extends Pin {
     public EmptyPin(int x, boolean top) {
-        super(x, top);
+        super(x, top, null);
     }
 
     public void setNet(int net_id, boolean out_net){
