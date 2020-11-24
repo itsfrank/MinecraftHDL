@@ -26,7 +26,7 @@ assign dout = (a & (~x) & (~y)) |
 endmodule 
 ``` 
  
-When synthesized through Minecraft HDL if produces this circuit: 
+When synthesized through Minecraft HDL it produces this circuit: 
  
  
 ![4to1mux][mux4_short] 
